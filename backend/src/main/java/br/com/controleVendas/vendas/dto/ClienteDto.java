@@ -1,6 +1,5 @@
 package br.com.controleVendas.vendas.dto;
 
-import java.util.Date;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
@@ -15,9 +14,9 @@ public class ClienteDto {
 	private String sobrenome;
 	private String email;
 	private String senha;
-	private Date criadoEm;
-	private Date atualizadoEm;
-	private Date deletadoEm;
+	private String criadoEm;
+	private String atualizadoEm;
+	private String deletadoEm;
 	private PerfilEnum perfil;
 	
 	public ClienteDto() {}
@@ -69,27 +68,27 @@ public class ClienteDto {
 		this.senha = senha;
 	}
 
-	public Date getCriadoEm() {
+	public String getCriadoEm() {
 		return criadoEm;
 	}
 
-	public void setCriadoEm(Date criadoEm) {
+	public void setCriadoEm(String criadoEm) {
 		this.criadoEm = criadoEm;
 	}
 
-	public Date getAtualizadoEm() {
+	public String getAtualizadoEm() {
 		return atualizadoEm;
 	}
 
-	public void setAtualizadoEm(Date atualizadoEm) {
+	public void setAtualizadoEm(String atualizadoEm) {
 		this.atualizadoEm = atualizadoEm;
 	}
 
-	public Date getDeletadoEm() {
+	public String getDeletadoEm() {
 		return deletadoEm;
 	}
 
-	public void setDeletadoEm(Date deletadoEm) {
+	public void setDeletadoEm(String deletadoEm) {
 		this.deletadoEm = deletadoEm;
 	}
 

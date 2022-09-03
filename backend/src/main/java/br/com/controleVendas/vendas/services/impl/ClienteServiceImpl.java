@@ -1,7 +1,5 @@
 package br.com.controleVendas.vendas.services.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -18,21 +16,19 @@ public class ClienteServiceImpl implements ClienteService{
 	
 	private static final Logger log = LoggerFactory.getLogger(ClienteServiceImpl.class);
 	
-	private Date data = new Date();
-	
 	@Autowired
 	private ClienteRepository clienteRepository;
 
 	@Override
 	public Optional<Cliente> buscarPorEmail(String email) {
-		//Cliente consulta = this.clienteRepository.findByEmail(email);
+		Cliente consulta = this.clienteRepository.findByEmail(email);
 		
-		//if(consulta.getDeletadoEm() != null) {
-		//	log.info("Cliente {} não encontrado", email);
-		//}
+		if(consulta.getDeletadoEm() != null) {
+			log.info("Cliente {} não encontrado", email);
+		}
 		log.info("Buscando cliente pelo email {}", email);
-		//return Optional.ofNullable(consulta);
-		return Optional.ofNullable(this.clienteRepository.findByEmail(email));
+		return Optional.ofNullable(consulta);
+		//return Optional.ofNullable(this.clienteRepository.findByEmail(email));
 	}
 
 	@Override
@@ -66,20 +62,9 @@ public class ClienteServiceImpl implements ClienteService{
 	}
 
 	@Override
-	public void deletar(Long id) {
+	public int deletar(Long id, String data) {
 		log.info("Deletando cliente da base de dados");
-		String dataDeletada = this.formatDate(this.data);
-		this.clienteRepository.deleteCliente(id, dataDeletada);
-	}
-	
-	/**
-	 * Formata a data para salvar no banco de dados
-	 * 
-	 * @param data
-	 * @return "yyyy-MM-dd HH:mm:ss"
-	 */
-	private String formatDate(Date data) {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		return formatter.format(data);
+		//String dataDeletada = this.formatDate(data);
+		return this.clienteRepository.deleteCliente(id, data);
 	}
 }

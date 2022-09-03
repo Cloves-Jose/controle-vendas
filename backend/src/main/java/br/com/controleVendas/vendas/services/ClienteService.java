@@ -44,6 +44,6 @@ public interface ClienteService {
 	 * Realiza o soft-delete de um cliente na base de dados
 	 * @param id
 	 */
-	void deletar(Long id);
+	int deletar(Long id, String data);
 
 }

@@ -1,6 +1,7 @@
 package br.com.controleVendas.vendas.controller;
 
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
 
@@ -13,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,11 +26,10 @@ import br.com.controleVendas.vendas.entities.Cliente;
 import br.com.controleVendas.vendas.enums.PerfilEnum;
 import br.com.controleVendas.vendas.response.Response;
 import br.com.controleVendas.vendas.services.ClienteService;
-import br.com.controleVendas.vendas.services.impl.ClienteServiceImpl;
 import br.com.controleVendas.vendas.utils.PasswordUtils;
 
 @RestController
-@RequestMapping("/api/cadastrar-cl")
+@RequestMapping("/api/cliente")
 @CrossOrigin(origins = "*")
 public class ClienteController {
 	
@@ -35,9 +37,6 @@ public class ClienteController {
 	
 	@Autowired
 	private ClienteService clienteService;
-	
-	@Autowired
-	private ClienteServiceImpl clienteServiceImpl;
 	
 	public ClienteController() {}
 	
@@ -71,6 +70,27 @@ public class ClienteController {
 		return ResponseEntity.ok(response);
 		
 	}
+	/**
+	 * Desativa um cliente por ID
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Response<String>> remover(@PathVariable("id") Long id) {
+		log.info("Remover lançamento: {}", id);
+		Response<String> response = new Response<String>();
+		Optional<Cliente> cliente = this.clienteService.buscarPorId(id);
+		
+		if(!cliente.isPresent()) {
+			log.info("Erro ao remover devido ao lançamento ID: {} ser inválido.", id);
+			response.getErrors().add("Erro ao remover lançamento. Resgistro não encontrado para o id " + id);
+			return ResponseEntity.badRequest().body(response);
+		}
+		
+		this.clienteService.deletar(id, formatarData(new Date()));
+		return ResponseEntity.ok(new Response<String>());
+	}
 	
 	/**
 	 * Popula o DTO de cadastro com os dados do cliente
@@ -84,6 +104,7 @@ public class ClienteController {
 		clienteDto.setSobrenome(cliente.getSobrenome());
 		clienteDto.setEmail(cliente.getEmail());
 		clienteDto.setCriadoEm(cliente.getCriadoEm());
+		clienteDto.setPerfil(cliente.getPerfil());
 		clienteDto.setAtualizadoEm(cliente.getAtualizadoEm());
 		clienteDto.setDeletadoEm(clienteDto.getDeletadoEm());
 		return clienteDto;
@@ -105,8 +126,19 @@ public class ClienteController {
 		cliente.setEmail(cadastroClienteDto.getEmail());
 		cliente.setPerfil(PerfilEnum.ROLE_ADMIN);
 		cliente.setSenha(PasswordUtils.gerarBCrypt(cadastroClienteDto.getSenha()));
-		cliente.setCriadoEm(new Date());
+		cliente.setCriadoEm(formatarData(new Date()));
 		return cliente;
+	}
+	
+	/**
+	 * Formata a data antes de salvar no banco
+	 * 
+	 * @param data
+	 * @return "yyyy-MM-dd HH:mm:ss"
+	 */
+	private String formatarData(Date data) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return formatter.format(data);
 	}
 
 	/**

@@ -1,9 +1,6 @@
 package br.com.controleVendas.vendas.entities;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Optional;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,9 +24,9 @@ public class Cliente implements Serializable{
 	private String sobrenome;
 	private String email;
 	private String senha;
-	private Date criadoEm;
-	private Date atualizadoEm;
-	private Date deletadoEm;
+	private String criadoEm;
+	private String atualizadoEm;
+	private String deletadoEm;
 	private PerfilEnum perfil;
 	
 	public Cliente () {}
@@ -81,29 +78,29 @@ public class Cliente implements Serializable{
 	}
 	
 	@Column(name = "criadoEm", nullable = true)
-	public Date getCriadoEm() {
+	public String getCriadoEm() {
 		return criadoEm;
 	}
 	
-	public void setCriadoEm(Date criadoEm) {
+	public void setCriadoEm(String criadoEm) {
 		this.criadoEm = criadoEm;
 	}
 	
 	@Column(name = "atualizadoEm", nullable = true)
-	public Date getAtualizadoEm() {
+	public String getAtualizadoEm() {
 		return atualizadoEm;
 	}
 
-	public void setAtualizadoEm(Date atualizadoEm) {
+	public void setAtualizadoEm(String atualizadoEm) {
 		this.atualizadoEm = atualizadoEm;
 	}
 	
 	@Column(name = "deletadoEm", nullable = true)
-	public Date getDeletadoEm() {
+	public String getDeletadoEm() {
 		return deletadoEm;
 	}
 
-	public void setDeletadoEm(Date deletadoEm) {
+	public void setDeletadoEm(String deletadoEm) {
 		this.deletadoEm = deletadoEm;
 	}
 	
