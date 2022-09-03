@@ -23,6 +23,7 @@ import br.com.controleVendas.vendas.entities.Cliente;
 import br.com.controleVendas.vendas.enums.PerfilEnum;
 import br.com.controleVendas.vendas.response.Response;
 import br.com.controleVendas.vendas.services.ClienteService;
+import br.com.controleVendas.vendas.services.impl.ClienteServiceImpl;
 import br.com.controleVendas.vendas.utils.PasswordUtils;
 
 @RestController
@@ -34,6 +35,9 @@ public class ClienteController {
 	
 	@Autowired
 	private ClienteService clienteService;
+	
+	@Autowired
+	private ClienteServiceImpl clienteServiceImpl;
 	
 	public ClienteController() {}
 	
@@ -112,11 +116,8 @@ public class ClienteController {
 	 * @param result
 	 */
 	private void validarDadosExistentes(ClienteDto clienteDto, BindingResult result) {
-		Optional<Cliente> cliente = this.clienteService.buscarPorEmail(clienteDto.getEmail());
-		if(!cliente.isPresent()) {
-			result.addError(new ObjectError("cliente", "Cliente já cadastrado"));
-		}
 		
-		cliente.ifPresent(cli -> result.addError(new ObjectError("cliente", "Email já existente.")));
+		this.clienteService.buscarPorEmail(clienteDto.getEmail())
+			.ifPresent(cli -> result.addError(new ObjectError("cliente", "Email já existente.")));
 	}
 }
