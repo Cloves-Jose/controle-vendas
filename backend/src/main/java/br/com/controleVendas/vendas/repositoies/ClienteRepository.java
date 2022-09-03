@@ -18,6 +18,11 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 	@Transactional(readOnly = true)
 	Cliente findByNomeStartsWith(String nome);
 	
+	
+	@Query("SELECT c FROM Cliente c WHERE c.id =:clienteId")
+	@Transactional(readOnly = true)
+	Cliente findByClienteId(@Param("clienteId") Long clienteId);
+	
 	@Modifying(clearAutomatically = true)
 	@Transactional(readOnly = false)
 	@Query("UPDATE Cliente c SET c.deletadoEm =:data WHERE c.id =:id")

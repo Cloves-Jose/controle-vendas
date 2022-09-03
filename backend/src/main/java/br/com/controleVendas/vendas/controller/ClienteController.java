@@ -10,15 +10,21 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.controleVendas.vendas.dto.ClienteDto;
@@ -38,8 +44,10 @@ public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 	
-	public ClienteController() {}
+	@Value("${paginacao.qtd_por_pagina}")
+	private int qtdPorPagina;
 	
+	public ClienteController() {}
 	
 	/**
 	 * Cadastrar um novo cliente no sistema.
@@ -91,6 +99,29 @@ public class ClienteController {
 		this.clienteService.deletar(id, formatarData(new Date()));
 		return ResponseEntity.ok(new Response<String>());
 	}
+	
+	/**
+	 * Retorna a listagem de clientes cadastrados.
+	 * 
+	 * @param clienteId
+	 * @return ResponseEntity<Response<LancamentoDto>>
+	 */
+	@GetMapping(value = "/{clienteId}")
+	public ResponseEntity<Response<ClienteDto>> buscarPorId(@PathVariable("clienteId") Long clienteId) {
+		log.info("Buscando lançamento por Id: {}", clienteId);
+		Response<ClienteDto> response = new Response<ClienteDto>();
+		Optional<Cliente> cliente = this.clienteService.buscarPorId(clienteId);
+		
+		if(!cliente.isPresent()) {
+			log.info("Cliente não encontrado para o ID: {}", clienteId);
+			response.getErrors().add("Cliente não encontrado para o id " + clienteId);
+			return ResponseEntity.badRequest().body(response);
+		}
+		
+		response.setData(this.converterClienteDto(cliente.get()));
+		return ResponseEntity.ok(response);
+	}
+	
 	
 	/**
 	 * Popula o DTO de cadastro com os dados do cliente

@@ -2,6 +2,9 @@ package br.com.controleVendas.vendas.services;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import br.com.controleVendas.vendas.entities.Cliente;
 
 public interface ClienteService {
@@ -21,7 +24,7 @@ public interface ClienteService {
 	 * @param id
 	 * @return Optinal<Cliente>
 	 */
-	Optional<Cliente> buscarPorId(Long id);
+	Optional<Cliente> buscarPorId(Long clienteId);
 	
 	
 	/**
