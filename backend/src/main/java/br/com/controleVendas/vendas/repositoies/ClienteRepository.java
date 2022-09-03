@@ -1,5 +1,9 @@
 package br.com.controleVendas.vendas.repositoies;
 
-public interface ClienteRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import br.com.controleVendas.vendas.entities.Cliente;
+
+public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 
 }
