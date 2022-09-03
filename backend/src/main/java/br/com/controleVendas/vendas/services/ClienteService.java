@@ -21,7 +21,7 @@ public interface ClienteService {
 	 * @param id
 	 * @return Optinal<Cliente>
 	 */
-	Optional<Cliente> buscarPorId(String id);
+	Optional<Cliente> buscarPorId(Long id);
 	
 	
 	/**
@@ -45,13 +45,5 @@ public interface ClienteService {
 	 * @param id
 	 */
 	void deletar(Long id);
-	
-	/**
-	 * Atualiza os dados do cliente
-	 * 
-	 * @param id
-	 * @return Cliente
-	 */
-	Cliente atualizar(Long id);
 
 }
