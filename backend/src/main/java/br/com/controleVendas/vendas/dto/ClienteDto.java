@@ -1,8 +1,6 @@
 package br.com.controleVendas.vendas.dto;
 
 import java.util.Date;
-import java.util.Optional;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
@@ -16,10 +14,10 @@ public class ClienteDto {
 	private String nome;
 	private String sobrenome;
 	private String email;
-	private Optional<String> senha = Optional.empty();
-	private Optional<Date> criadoEm = Optional.empty();
-	private Optional<Date> atualizadoEm = Optional.empty();
-	private Optional<Date> deletadoEm = Optional.empty();
+	private String senha;
+	private Date criadoEm;
+	private Date atualizadoEm;
+	private Date deletadoEm;
 	private PerfilEnum perfil;
 	
 	public ClienteDto() {}
@@ -63,35 +61,35 @@ public class ClienteDto {
 		this.email = email;
 	}
 
-	public Optional<String> getSenha() {
+	public String getSenha() {
 		return senha;
 	}
 
-	public void setSenha(Optional<String> senha) {
+	public void setSenha(String senha) {
 		this.senha = senha;
 	}
 
-	public Optional<Date> getCriadoEm() {
+	public Date getCriadoEm() {
 		return criadoEm;
 	}
 
-	public void setCriadoEm(Optional<Date> criadoEm) {
+	public void setCriadoEm(Date criadoEm) {
 		this.criadoEm = criadoEm;
 	}
 
-	public Optional<Date> getAtualizadoEm() {
+	public Date getAtualizadoEm() {
 		return atualizadoEm;
 	}
 
-	public void setAtualizadoEm(Optional<Date> atualizadoEm) {
+	public void setAtualizadoEm(Date atualizadoEm) {
 		this.atualizadoEm = atualizadoEm;
 	}
 
-	public Optional<Date> getDeletadoEm() {
+	public Date getDeletadoEm() {
 		return deletadoEm;
 	}
 
-	public void setDeletadoEm(Optional<Date> deletadoEm) {
+	public void setDeletadoEm(Date deletadoEm) {
 		this.deletadoEm = deletadoEm;
 	}
 

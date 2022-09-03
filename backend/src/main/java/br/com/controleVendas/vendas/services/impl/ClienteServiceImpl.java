@@ -25,14 +25,14 @@ public class ClienteServiceImpl implements ClienteService{
 
 	@Override
 	public Optional<Cliente> buscarPorEmail(String email) {
-		Cliente consulta = this.clienteRepository.findByEmail(email);
+		//Cliente consulta = this.clienteRepository.findByEmail(email);
 		
-		if(consulta.getDeletadoEm() != null) {
-			log.info("Cliente {} não encontrado", email);
-		}
+		//if(consulta.getDeletadoEm() != null) {
+		//	log.info("Cliente {} não encontrado", email);
+		//}
 		log.info("Buscando cliente pelo email {}", email);
-		return Optional.ofNullable(consulta);
-		//return Optional.ofNullable(this.clienteRepository.findByEmail(email));
+		//return Optional.ofNullable(consulta);
+		return Optional.ofNullable(this.clienteRepository.findByEmail(email));
 	}
 
 	@Override
@@ -70,7 +70,6 @@ public class ClienteServiceImpl implements ClienteService{
 		log.info("Deletando cliente da base de dados");
 		String dataDeletada = this.formatDate(this.data);
 		this.clienteRepository.deleteCliente(id, dataDeletada);
-		
 	}
 	
 	/**
