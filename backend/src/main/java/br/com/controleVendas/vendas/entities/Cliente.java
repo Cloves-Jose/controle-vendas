@@ -114,7 +114,11 @@ public class Cliente implements Serializable{
 	public void setPerfil(PerfilEnum perfil) {
 		this.perfil = perfil;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "Cliente [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", email=" + email + ", senha="
+				+ senha + ", criadoEm=" + criadoEm + ", atualizadoEm=" + atualizadoEm + ", deletadoEm=" + deletadoEm
+				+ ", perfil=" + perfil + "]";
+	}
 }
