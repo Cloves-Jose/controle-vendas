@@ -10,7 +10,6 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -46,9 +45,6 @@ public class ClienteController {
 	
 	@Autowired
 	private ClienteService clienteService;
-	
-	@Value("${paginacao.qtd_por_pagina}")
-	private int qtdPorPagina;
 	
 	public ClienteController() {}
 	
@@ -205,7 +201,7 @@ public class ClienteController {
 	 */
 	private void validarDadosExistentes(ClienteDto clienteDto, BindingResult result) {
 		
-		this.clienteService.buscarPorEmail(clienteDto.getEmail())
+		this.clienteService.listarPorEmail(clienteDto.getEmail())
 			.ifPresent(cli -> result.addError(new ObjectError("cliente", "Email já existente.")));
 	}
 }

@@ -33,10 +33,10 @@ public class Cliente implements Serializable{
 	private String atualizadoEm;
 	private String deletadoEm;
 	private PerfilEnum perfil;
+	private List<Funcionario> funcionarios;
 
 	public Cliente () {}
 	
-	private List<Funcionario> funcionarios;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -2,14 +2,11 @@ package br.com.controleVendas.vendas.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.com.controleVendas.vendas.enums.PerfilEnum;
@@ -34,10 +31,7 @@ public class Funcionario implements Serializable{
 	
 	public Funcionario () {}
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "cliente")
-	@JoinColumn(name = "clientes_id")
-	private Cliente clientes;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
@@ -137,7 +131,5 @@ public class Funcionario implements Serializable{
 	public void setPerfil(PerfilEnum perfil) {
 		this.perfil = perfil;
 	}
-	
-	
 
 }

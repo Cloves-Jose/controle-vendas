@@ -19,6 +19,10 @@ public interface ClienteService {
 	 */
 	Optional<Cliente> buscarPorEmail(String email);
 	
+	/**
+	 * 
+	 */
+	Optional<Cliente> listarPorEmail(String email);
 	
 	/**
 	 * Retorna um cliente pelo id

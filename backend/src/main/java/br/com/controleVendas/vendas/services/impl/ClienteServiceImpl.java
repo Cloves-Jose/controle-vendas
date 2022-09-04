@@ -85,4 +85,10 @@ public class ClienteServiceImpl implements ClienteService{
 		log.info("Deletando cliente da base de dados");
 		return this.clienteRepository.deleteCliente(id, data);
 	}
+
+	@Override
+	public Optional<Cliente> listarPorEmail(String email) {
+		log.info("Procurando cliente por email {}", email);
+		return Optional.ofNullable(this.clienteRepository.findByEmail(email));
+	}
 }
