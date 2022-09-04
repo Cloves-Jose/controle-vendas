@@ -2,6 +2,9 @@ package br.com.controleVendas.vendas.services;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import br.com.controleVendas.vendas.entities.Cliente;
 
 /**
@@ -33,9 +36,9 @@ public interface ClienteService {
 	 * Retorna um cliente pelo nome
 	 * 
 	 * @param nome
-	 * @return Optional<Cliente>
+	 * @return Page<Cliente>
 	 */
-	Optional<Cliente> buscarPorNome(String nome);
+	Page<Cliente> buscarPorNome(String nome, PageRequest pageRequest);
 	
 	/**
 	 * Cadastra um novo cliente na base de dados

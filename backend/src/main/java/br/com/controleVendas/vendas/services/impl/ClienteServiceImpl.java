@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import br.com.controleVendas.vendas.entities.Cliente;
@@ -37,12 +39,9 @@ public class ClienteServiceImpl implements ClienteService{
 		if(consulta.getDeletadoEm() == null) {
 			log.info("Buscando cliente pelo email {}", email);
 			return Optional.ofNullable(consulta);
-			//log.info("Cliente {} não encontrado", email);
 		}
 		log.info("Cliente não encontrado {}", email);
-		return null;
-		//return Optional.ofNullable(consulta);
-		//return Optional.ofNullable(this.clienteRepository.findByEmail(email));
+		return Optional.empty();
 	}
 	
 	/**
@@ -68,18 +67,12 @@ public class ClienteServiceImpl implements ClienteService{
 	 * Retorna o cliente pela primeira letra do nome
 	 * 
 	 * @param nome
-	 * @return Optional<Cliente>
+	 * @return Page<Cliente>
 	 */
 	@Override
-	public Optional<Cliente> buscarPorNome(String nome) {
-		Cliente consulta = this.clienteRepository.findByNomeStartsWith(nome);
-		
-		if(consulta.getDeletadoEm() != null) {
-			log.info("Cliente {} não encontrado", nome);
-		}
-		log.info("Buscando cliente por nome {}", nome);
-		return Optional.ofNullable(consulta);
-		//return Optional.ofNullable(this.clienteRepository.findByNomeStartsWith(nome));
+	public Page<Cliente> buscarPorNome(String nome, PageRequest pageRequest) {
+		log.info("Buscando cleintes iniciados com a letra {}", nome);
+		return this.clienteRepository.findByNomeStartsWith(nome, pageRequest);
 	}
 	
 	/**

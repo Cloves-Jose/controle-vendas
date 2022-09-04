@@ -11,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.controleVendas.vendas.dto.ClienteDto;
@@ -70,7 +74,7 @@ public class ClienteController {
 		Cliente cliente = this.converterDtoParaCliente(cadastroClienteDto, result);
 		
 		if (result.hasErrors()) {
-			log.error("Erro validando dados de cadastro de Cliente: {}", result.getAllErrors());
+			log.error("Erro validando dados de cadastro de cliente: {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
@@ -81,6 +85,7 @@ public class ClienteController {
 		return ResponseEntity.ok(response);
 		
 	}
+	
 	/**
 	 * Desativa um cliente por ID
 	 * 
@@ -89,13 +94,13 @@ public class ClienteController {
 	 */
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Response<String>> remover(@PathVariable("id") Long id) {
-		log.info("Remover lançamento: {}", id);
+		log.info("Remover cliente: {}", id);
 		Response<String> response = new Response<String>();
 		Optional<Cliente> cliente = this.clienteService.buscarPorId(id);
 		
 		if(!cliente.isPresent()) {
-			log.info("Erro ao remover devido ao lançamento ID: {} ser inválido.", id);
-			response.getErrors().add("Erro ao remover lançamento. Resgistro não encontrado para o id " + id);
+			log.info("Erro ao remover devido ao cliente ID: {} ser inválido.", id);
+			response.getErrors().add("Erro ao remover cliente. Resgistro não encontrado para o id " + id);
 			return ResponseEntity.badRequest().body(response);
 		}
 		
@@ -107,11 +112,11 @@ public class ClienteController {
 	 * Retorna a listagem de clientes cadastrados.
 	 * 
 	 * @param clienteId
-	 * @return ResponseEntity<Response<LancamentoDto>>
+	 * @return ResponseEntity<Response<ClienteDto>>
 	 */
 	@GetMapping(value = "/{clienteId}")
 	public ResponseEntity<Response<ClienteDto>> buscarPorId(@PathVariable("clienteId") Long clienteId) {
-		log.info("Buscando lançamento por Id: {}", clienteId);
+		log.info("Buscando cliente por Id: {}", clienteId);
 		Response<ClienteDto> response = new Response<ClienteDto>();
 		Optional<Cliente> cliente = this.clienteService.buscarPorId(clienteId);
 		
@@ -125,6 +130,51 @@ public class ClienteController {
 		return ResponseEntity.ok(response);
 	}
 	
+	/**
+	 * Retorna o cliente a partir do email 
+	 * 
+	 * @param email
+	 * @return ResponseEntity<Response<ClienteDto>>
+	 */
+	@GetMapping(value = "email/{email}")
+	public ResponseEntity<Response<ClienteDto>> buscaPorEmail(@PathVariable("email") String email) {
+		log.info("Buscando cliente por email: {}", email);
+		Response<ClienteDto> response = new Response<ClienteDto>();
+		Optional<Cliente> cliente = this.clienteService.buscarPorEmail(email);
+		
+		if(!cliente.isPresent()) {
+			log.info("Cliente não encontrado para o email: {}", email);
+			response.getErrors().add("Cliente não encontrado para o email " + email);
+			return ResponseEntity.badRequest().body(response);
+		}
+		
+		response.setData(this.converterClienteDto(cliente.get()));
+		return ResponseEntity.ok(response);
+	}
+	
+	/**
+	 * Retorna clientes pela primeira letra
+	 * 
+	 * @param nome
+	 * @return
+	 */
+	@GetMapping(value = "/nome/{nome}")
+	public ResponseEntity<Response<Page<ClienteDto>>> buscaPorLetra(
+			@PathVariable("nome") String nome,
+			@RequestParam(value = "pag", defaultValue = "0") int pag,
+			@RequestParam(value = "ord", defaultValue = "id") String ord,
+			@RequestParam(value = "dir", defaultValue = "DESC") String dir) {
+		log.info("Buscando clientes com letra {}, página {}", nome, pag);
+		Response<Page<ClienteDto>> response = new Response<Page<ClienteDto>>();
+		
+		Page<Cliente> clientes = this.clienteService.buscarPorNome(nome, 
+				PageRequest.of(pag, this.qtdPorPagina, Direction.valueOf(dir), ord));
+		Page<ClienteDto> clientesDto = clientes.map(cliente -> this.converterClienteDto(cliente));
+		
+		response.setData(clientesDto);
+		return ResponseEntity.ok(response);
+		
+	}
 	
 	/**
 	 * Popula o DTO de cadastro com os dados do cliente
@@ -140,7 +190,7 @@ public class ClienteController {
 		clienteDto.setCriadoEm(cliente.getCriadoEm());
 		clienteDto.setPerfil(cliente.getPerfil());
 		clienteDto.setAtualizadoEm(cliente.getAtualizadoEm());
-		clienteDto.setDeletadoEm(clienteDto.getDeletadoEm());
+		clienteDto.setDeletadoEm(cliente.getDeletadoEm());
 		return clienteDto;
 	}
 
