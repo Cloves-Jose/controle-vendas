@@ -10,6 +10,9 @@ import javax.persistence.Table;
 
 import br.com.controleVendas.vendas.enums.PerfilEnum;
 
+/**
+ * @author Cloves José
+ */
 @Entity
 @Table(name = "cliente")
 public class Cliente implements Serializable{

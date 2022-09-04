@@ -30,6 +30,13 @@ import br.com.controleVendas.vendas.response.Response;
 import br.com.controleVendas.vendas.services.ClienteService;
 import br.com.controleVendas.vendas.utils.PasswordUtils;
 
+/**
+ * 
+ * @author Cloves José
+ * 
+ *
+ */
+
 @RestController
 @RequestMapping("/api/cliente")
 @CrossOrigin(origins = "*")

@@ -11,6 +11,11 @@ import br.com.controleVendas.vendas.entities.Cliente;
 import br.com.controleVendas.vendas.repositoies.ClienteRepository;
 import br.com.controleVendas.vendas.services.ClienteService;
 
+/**
+ * 
+ * @author Cloves José
+ *
+ */
 @Service
 public class ClienteServiceImpl implements ClienteService{
 	

@@ -6,7 +6,11 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import br.com.controleVendas.vendas.enums.PerfilEnum;
-
+/**
+ * 
+ * @author Cloves José
+ *
+ */
 public class ClienteDto {
 	
 	private Long id;

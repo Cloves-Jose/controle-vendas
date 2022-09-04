@@ -4,6 +4,11 @@ import java.util.Optional;
 
 import br.com.controleVendas.vendas.entities.Cliente;
 
+/**
+ * 
+ * @author Cloves José
+ *
+ */
 public interface ClienteService {
 	
 	/**

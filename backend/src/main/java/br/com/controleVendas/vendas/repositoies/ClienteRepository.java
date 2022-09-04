@@ -9,6 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.controleVendas.vendas.entities.Cliente;
 
+/**
+ * 
+ * @author Cloves José
+ *
+ */
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 	
