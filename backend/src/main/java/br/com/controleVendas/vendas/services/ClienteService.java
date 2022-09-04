@@ -12,7 +12,7 @@ import br.com.controleVendas.vendas.entities.Cliente;
 public interface ClienteService {
 	
 	/**
-	 * Retorna um cliente pelo email
+	 * Retorna um cliente pelo email somente se ele estiver ativo
 	 * 
 	 * @param email
 	 * @return Optional<Cliente>
@@ -20,7 +20,10 @@ public interface ClienteService {
 	Optional<Cliente> buscarPorEmail(String email);
 	
 	/**
+	 * Verifica se o email já está cadastrado
 	 * 
+	 * @param email
+	 * @return Optional<Cliente>
 	 */
 	Optional<Cliente> listarPorEmail(String email);
 	
