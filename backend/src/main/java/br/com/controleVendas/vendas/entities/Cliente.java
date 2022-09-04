@@ -1,11 +1,16 @@
 package br.com.controleVendas.vendas.entities;
 
 import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.com.controleVendas.vendas.enums.PerfilEnum;
@@ -28,8 +33,10 @@ public class Cliente implements Serializable{
 	private String atualizadoEm;
 	private String deletadoEm;
 	private PerfilEnum perfil;
-	
+
 	public Cliente () {}
+	
+	private List<Funcionario> funcionarios;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -111,6 +118,16 @@ public class Cliente implements Serializable{
 
 	public void setPerfil(PerfilEnum perfil) {
 		this.perfil = perfil;
+	}
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cliente_id")
+	public List<Funcionario> getFuncionarios() {
+		return funcionarios;
+	}
+
+	public void setFuncionarios(List<Funcionario> funcionarios) {
+		this.funcionarios = funcionarios;
 	}
 
 	@Override
