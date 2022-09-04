@@ -25,7 +25,6 @@ public class ClienteServiceImpl implements ClienteService{
 	 * @param email
 	 * @return Optional<Cliente>
 	 */
-	
 	@Override
 	public Optional<Cliente> buscarPorEmail(String email) {
 		Cliente consulta = this.clienteRepository.findByEmail(email);
@@ -100,7 +99,6 @@ public class ClienteServiceImpl implements ClienteService{
 	@Override
 	public int deletar(Long id, String data) {
 		log.info("Deletando cliente da base de dados");
-		//String dataDeletada = this.formatDate(data);
 		return this.clienteRepository.deleteCliente(id, data);
 	}
 }
