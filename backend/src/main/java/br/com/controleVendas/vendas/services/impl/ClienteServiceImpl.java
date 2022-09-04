@@ -85,6 +85,13 @@ public class ClienteServiceImpl implements ClienteService{
 		log.info("Deletando cliente da base de dados");
 		return this.clienteRepository.deleteCliente(id, data);
 	}
+	
+	/**
+	 * Checa se o email que será cadastrado já está no banco
+	 * 
+	 * @param email
+	 * @return Optional<Cliente>
+	 */
 
 	@Override
 	public Optional<Cliente> listarPorEmail(String email) {

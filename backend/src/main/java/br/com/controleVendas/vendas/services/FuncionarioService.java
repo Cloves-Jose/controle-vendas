@@ -18,5 +18,5 @@ public interface FuncionarioService {
 	 * @param id
 	 * @param data
 	 */
-	void deletar(Long id, String data);
+	int deletar(Long id, String data);
 }
