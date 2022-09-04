@@ -2,9 +2,6 @@ package br.com.controleVendas.vendas.services;
 
 import java.util.Optional;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-
 import br.com.controleVendas.vendas.entities.Cliente;
 
 /**
