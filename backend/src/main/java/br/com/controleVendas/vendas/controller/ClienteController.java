@@ -11,9 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -24,7 +21,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.controleVendas.vendas.dto.ClienteDto;
@@ -150,30 +146,6 @@ public class ClienteController {
 		
 		response.setData(this.converterClienteDto(cliente.get()));
 		return ResponseEntity.ok(response);
-	}
-	
-	/**
-	 * Retorna clientes pela primeira letra
-	 * 
-	 * @param nome
-	 * @return
-	 */
-	@GetMapping(value = "/nome/{nome}")
-	public ResponseEntity<Response<Page<ClienteDto>>> buscaPorLetra(
-			@PathVariable("nome") String nome,
-			@RequestParam(value = "pag", defaultValue = "0") int pag,
-			@RequestParam(value = "ord", defaultValue = "id") String ord,
-			@RequestParam(value = "dir", defaultValue = "DESC") String dir) {
-		log.info("Buscando clientes com letra {}, página {}", nome, pag);
-		Response<Page<ClienteDto>> response = new Response<Page<ClienteDto>>();
-		
-		Page<Cliente> clientes = this.clienteService.buscarPorNome(nome, 
-				PageRequest.of(pag, this.qtdPorPagina, Direction.valueOf(dir), ord));
-		Page<ClienteDto> clientesDto = clientes.map(cliente -> this.converterClienteDto(cliente));
-		
-		response.setData(clientesDto);
-		return ResponseEntity.ok(response);
-		
 	}
 	
 	/**

@@ -1,7 +1,5 @@
 package br.com.controleVendas.vendas.repositoies;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,10 +19,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 	
 	@Transactional(readOnly = true)
 	Cliente findByEmail(@Param("email") String email);
-	
-	@Transactional(readOnly = true)
-	Page<Cliente> findByNomeStartsWith(@Param("nome")String nome, 
-			@Param("pageRequest")PageRequest pageRequest);
 	
 	
 	@Transactional(readOnly = true)

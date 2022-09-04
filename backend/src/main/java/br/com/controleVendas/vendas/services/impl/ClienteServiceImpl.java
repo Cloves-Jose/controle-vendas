@@ -5,8 +5,6 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import br.com.controleVendas.vendas.entities.Cliente;
@@ -61,18 +59,6 @@ public class ClienteServiceImpl implements ClienteService{
 		}
 		log.info("Cliente de id: {} não encontrado", clienteId);
 		return Optional.empty();
-	}
-	
-	/**
-	 * Retorna o cliente pela primeira letra do nome
-	 * 
-	 * @param nome
-	 * @return Page<Cliente>
-	 */
-	@Override
-	public Page<Cliente> buscarPorNome(String nome, PageRequest pageRequest) {
-		log.info("Buscando cleintes iniciados com a letra {}", nome);
-		return this.clienteRepository.findByNomeStartsWith(nome, pageRequest);
 	}
 	
 	/**

@@ -31,15 +31,6 @@ public interface ClienteService {
 	 */
 	Optional<Cliente> buscarPorId(Long clienteId);
 	
-	
-	/**
-	 * Retorna um cliente pelo nome
-	 * 
-	 * @param nome
-	 * @return Page<Cliente>
-	 */
-	Page<Cliente> buscarPorNome(String nome, PageRequest pageRequest);
-	
 	/**
 	 * Cadastra um novo cliente na base de dados
 	 * 
