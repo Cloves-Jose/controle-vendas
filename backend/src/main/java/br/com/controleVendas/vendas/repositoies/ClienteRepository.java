@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.controleVendas.vendas.entities.Cliente;
+import br.com.controleVendas.vendas.entities.CadastroPJ;
 
 /**
  * 
@@ -15,15 +15,15 @@ import br.com.controleVendas.vendas.entities.Cliente;
  *
  */
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Long>{
+public interface ClienteRepository extends JpaRepository<CadastroPJ, Long>{
 	
 	@Transactional(readOnly = true)
-	Cliente findByEmail(@Param("email") String email);
+	CadastroPJ findByEmail(@Param("email") String email);
 	
 	
 	@Transactional(readOnly = true)
 	@Query("SELECT c FROM Cliente c WHERE c.id =:clienteId")
-	Cliente findByClienteId(@Param("clienteId") Long clienteId);
+	CadastroPJ findByClienteId(@Param("clienteId") Long clienteId);
 	
 	@Modifying(clearAutomatically = true)
 	@Transactional(readOnly = false)

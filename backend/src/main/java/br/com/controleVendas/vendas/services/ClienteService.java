@@ -2,7 +2,7 @@ package br.com.controleVendas.vendas.services;
 
 import java.util.Optional;
 
-import br.com.controleVendas.vendas.entities.Cliente;
+import br.com.controleVendas.vendas.entities.CadastroPJ;
 
 /**
  * 
@@ -17,7 +17,7 @@ public interface ClienteService {
 	 * @param email
 	 * @return Optional<Cliente>
 	 */
-	Optional<Cliente> buscarPorEmail(String email);
+	Optional<CadastroPJ> buscarPorEmail(String email);
 	
 	/**
 	 * Verifica se o email já está cadastrado
@@ -25,7 +25,7 @@ public interface ClienteService {
 	 * @param email
 	 * @return Optional<Cliente>
 	 */
-	Optional<Cliente> listarPorEmail(String email);
+	Optional<CadastroPJ> listarPorEmail(String email);
 	
 	/**
 	 * Retorna um cliente pelo id
@@ -33,7 +33,7 @@ public interface ClienteService {
 	 * @param id
 	 * @return Optinal<Cliente>
 	 */
-	Optional<Cliente> buscarPorId(Long clienteId);
+	Optional<CadastroPJ> buscarPorId(Long clienteId);
 	
 	/**
 	 * Cadastra um novo cliente na base de dados
@@ -41,7 +41,7 @@ public interface ClienteService {
 	 * @param cliente
 	 * @return Cliente
 	 */
-	Cliente persistir(Cliente cliente);
+	CadastroPJ persistir(CadastroPJ cliente);
 	
 	/**
 	 * Realiza o soft-delete de um cliente na base de dados

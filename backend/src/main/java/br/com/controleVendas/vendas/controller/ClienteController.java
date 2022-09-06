@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.controleVendas.vendas.dto.ClienteDto;
-import br.com.controleVendas.vendas.entities.Cliente;
+import br.com.controleVendas.vendas.entities.CadastroPJ;
 import br.com.controleVendas.vendas.enums.PerfilEnum;
 import br.com.controleVendas.vendas.response.Response;
 import br.com.controleVendas.vendas.services.ClienteService;
@@ -63,7 +63,7 @@ public class ClienteController {
 		Response<ClienteDto> response = new Response<ClienteDto>();
 		
 		validarDadosExistentes(cadastroClienteDto, result);
-		Cliente cliente = this.converterDtoParaCliente(cadastroClienteDto, result);
+		CadastroPJ cliente = this.converterDtoParaCliente(cadastroClienteDto, result);
 		
 		if (result.hasErrors()) {
 			log.error("Erro validando dados de cadastro de cliente: {}", result.getAllErrors());
@@ -88,7 +88,7 @@ public class ClienteController {
 	public ResponseEntity<Response<String>> remover(@PathVariable("id") Long id) {
 		log.info("Remover cliente: {}", id);
 		Response<String> response = new Response<String>();
-		Optional<Cliente> cliente = this.clienteService.buscarPorId(id);
+		Optional<CadastroPJ> cliente = this.clienteService.buscarPorId(id);
 		
 		if(!cliente.isPresent()) {
 			log.info("Erro ao remover devido ao cliente ID: {} ser inválido.", id);
@@ -110,7 +110,7 @@ public class ClienteController {
 	public ResponseEntity<Response<ClienteDto>> buscarPorId(@PathVariable("clienteId") Long clienteId) {
 		log.info("Buscando cliente por Id: {}", clienteId);
 		Response<ClienteDto> response = new Response<ClienteDto>();
-		Optional<Cliente> cliente = this.clienteService.buscarPorId(clienteId);
+		Optional<CadastroPJ> cliente = this.clienteService.buscarPorId(clienteId);
 		
 		if(!cliente.isPresent()) {
 			log.info("Cliente não encontrado para o ID: {}", clienteId);
@@ -132,7 +132,7 @@ public class ClienteController {
 	public ResponseEntity<Response<ClienteDto>> buscaPorEmail(@PathVariable("email") String email) {
 		log.info("Buscando cliente por email: {}", email);
 		Response<ClienteDto> response = new Response<ClienteDto>();
-		Optional<Cliente> cliente = this.clienteService.buscarPorEmail(email);
+		Optional<CadastroPJ> cliente = this.clienteService.buscarPorEmail(email);
 		
 		if(!cliente.isPresent()) {
 			log.info("Cliente não encontrado para o email: {}", email);
@@ -149,11 +149,12 @@ public class ClienteController {
 	 * @param cliente
 	 * @return
 	 */
-	private ClienteDto converterClienteDto(Cliente cliente) {
+	private ClienteDto converterClienteDto(CadastroPJ cliente) {
 		ClienteDto clienteDto = new ClienteDto();
 		clienteDto.setId(cliente.getId());
-		clienteDto.setNome(cliente.getNome());
-		clienteDto.setSobrenome(cliente.getSobrenome());
+		clienteDto.setNome_fantasia(cliente.getNome_fantasia());
+		clienteDto.setRazao_social(cliente.getRazao_social());
+		clienteDto.setCnpj(cliente.getCnpj());
 		clienteDto.setEmail(cliente.getEmail());
 		clienteDto.setCriadoEm(cliente.getCriadoEm());
 		clienteDto.setPerfil(cliente.getPerfil());
@@ -170,13 +171,14 @@ public class ClienteController {
 	 * @return Cliente
 	 * @throws NoSuchAlgorithmException
 	 */
-	private Cliente converterDtoParaCliente(@Valid ClienteDto cadastroClienteDto, BindingResult result) 
+	private CadastroPJ converterDtoParaCliente(@Valid ClienteDto cadastroClienteDto, BindingResult result) 
 		throws NoSuchAlgorithmException {
-		Cliente cliente = new Cliente();
-		cliente.setNome(cadastroClienteDto.getNome());
-		cliente.setSobrenome(cadastroClienteDto.getSobrenome());
+		CadastroPJ cliente = new CadastroPJ();
+		cliente.setNome_fantasia(cadastroClienteDto.getNome_fantasia());
+		cliente.setRazao_social(cadastroClienteDto.getRazao_social());
+		cliente.setCnpj(cadastroClienteDto.getCnpj());
 		cliente.setEmail(cadastroClienteDto.getEmail());
-		cliente.setPerfil(PerfilEnum.ROLE_ADMIN);
+		cliente.setPerfil(PerfilEnum.ROLE_PJ);
 		cliente.setSenha(PasswordUtils.gerarBCrypt(cadastroClienteDto.getSenha()));
 		cliente.setCriadoEm(formatarData(new Date()));
 		return cliente;

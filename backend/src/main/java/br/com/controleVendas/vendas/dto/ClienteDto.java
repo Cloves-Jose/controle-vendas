@@ -14,10 +14,11 @@ import br.com.controleVendas.vendas.enums.PerfilEnum;
 public class ClienteDto {
 	
 	private Long id;
-	private String nome;
-	private String sobrenome;
+	private String razao_social;
+	private String nome_fantasia;
 	private String email;
 	private String senha;
+	private String cnpj;
 	private String criadoEm;
 	private String atualizadoEm;
 	private String deletadoEm;
@@ -33,26 +34,39 @@ public class ClienteDto {
 		this.id = id;
 	}
 	
-	@NotEmpty(message = "Nome não pode ser vazio")
-	@Length(min = 3, max = 200, message = "Nome deve conter entre 3 e 200 caracteres.")
-	public String getNome() {
-		return nome;
+	
+	@NotEmpty(message = "Razão social não pode ser vazia")
+	@Length(min = 3, max = 200, message = "Razão social deve conter entre 3 e 200 caracteres.")
+	public String getRazao_social() {
+		return razao_social;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setRazao_social(String razao_social) {
+		this.razao_social = razao_social;
 	}
 	
-	@NotEmpty(message = "Nome não pode ser vazio")
-	@Length(min = 3, max = 200, message = "Sobrenome deve conter entre 3 e 200 caracteres.")
-	public String getSobrenome() {
-		return sobrenome;
+	
+	@NotEmpty(message = "Nome fantasia não pode ser vazia")
+	@Length(min = 3, max = 200, message = "Nome fantasia deve conter entre 3 e 200 caracteres.")
+	public String getNome_fantasia() {
+		return nome_fantasia;
 	}
 
-	public void setSobrenome(String sobrenome) {
-		this.sobrenome = sobrenome;
+	public void setNome_fantasia(String nome_fantasia) {
+		this.nome_fantasia = nome_fantasia;
 	}
+
 	
+	@NotEmpty(message = "CNPJ não pode ser vazio")
+	@Length(min = 14, max = 14, message = "CNPJ deve conter exatamente 14 caracteres.")
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
 	@NotEmpty(message = "Email não pode ser vazio.")
 	@Length(min = 5, max = 200, message = "Email deve conter entre 5 e 200 caracteres")
 	@Email(message = "Email inválido")
@@ -106,8 +120,10 @@ public class ClienteDto {
 
 	@Override
 	public String toString() {
-		return "ClienteDto [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", email=" + email + ", senha="
-				+ senha + ", criadoEm=" + criadoEm + ", atualizadoEm=" + atualizadoEm + ", deletadoEm=" + deletadoEm
-				+ ", perfil=" + perfil + "]";
+		return "ClienteDto [id=" + id + ", razao_social=" + razao_social + ", nome_fantasia=" + nome_fantasia
+				+ ", email=" + email + ", senha=" + senha + ", cnpj=" + cnpj + ", criadoEm=" + criadoEm
+				+ ", atualizadoEm=" + atualizadoEm + ", deletadoEm=" + deletadoEm + ", perfil=" + perfil + "]";
 	}
+
+	
 }

@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.controleVendas.vendas.entities.Cliente;
+import br.com.controleVendas.vendas.entities.CadastroPJ;
 import br.com.controleVendas.vendas.repositoies.ClienteRepository;
 import br.com.controleVendas.vendas.services.ClienteService;
 
@@ -31,8 +31,8 @@ public class ClienteServiceImpl implements ClienteService{
 	 * @return Optional<Cliente>
 	 */
 	@Override
-	public Optional<Cliente> buscarPorEmail(String email) {
-		Cliente consulta = this.clienteRepository.findByEmail(email);
+	public Optional<CadastroPJ> buscarPorEmail(String email) {
+		CadastroPJ consulta = this.clienteRepository.findByEmail(email);
 		
 		if(consulta.getDeletadoEm() == null) {
 			log.info("Buscando cliente pelo email {}", email);
@@ -49,8 +49,8 @@ public class ClienteServiceImpl implements ClienteService{
 	 * @return Optional<Cliente>
 	 */
 	@Override
-	public Optional<Cliente> buscarPorId(Long clienteId) {
-		Cliente consulta = this.clienteRepository.findByClienteId(clienteId);
+	public Optional<CadastroPJ> buscarPorId(Long clienteId) {
+		CadastroPJ consulta = this.clienteRepository.findByClienteId(clienteId);
 		
 		if(consulta.getDeletadoEm() == null) {
 			log.info("Buscando cliente pelo id {}", clienteId);
@@ -68,7 +68,7 @@ public class ClienteServiceImpl implements ClienteService{
 	 * @return Cliente
 	 */
 	@Override
-	public Cliente persistir(Cliente cliente) {
+	public CadastroPJ persistir(CadastroPJ cliente) {
 		log.info("Persistindo cliente na base de dados {}", cliente);
 		return this.clienteRepository.save(cliente);
 	}
@@ -94,7 +94,7 @@ public class ClienteServiceImpl implements ClienteService{
 	 */
 
 	@Override
-	public Optional<Cliente> listarPorEmail(String email) {
+	public Optional<CadastroPJ> listarPorEmail(String email) {
 		log.info("Procurando cliente por email {}", email);
 		return Optional.ofNullable(this.clienteRepository.findByEmail(email));
 	}

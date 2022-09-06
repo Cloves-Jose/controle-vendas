@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.Length;
+
 import br.com.controleVendas.vendas.enums.PerfilEnum;
 
 /**
@@ -20,22 +22,22 @@ import br.com.controleVendas.vendas.enums.PerfilEnum;
  */
 @Entity
 @Table(name = "cliente")
-public class Cliente implements Serializable{
+public class CadastroPJ implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	private String nome;
-	private String sobrenome;
+	private String razao_social;
+	private String nome_fantasia;
 	private String email;
 	private String senha;
+	private String cnpj;
 	private String criadoEm;
 	private String atualizadoEm;
 	private String deletadoEm;
 	private PerfilEnum perfil;
 
-	public Cliente () {}
-	
+	public CadastroPJ () {}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,24 +49,33 @@ public class Cliente implements Serializable{
 		this.id = id;
 	}
 	
-	@Column(name = "nome", nullable = false)
-	public String getNome() {
-		return nome;
+	@Column(name = "razao_social", nullable = false)
+	public String getRazao_social() {
+		return razao_social;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setRazao_social(String razao_social) {
+		this.razao_social = razao_social;
 	}
 	
-	@Column(name = "sobrenome", nullable = false)
-	public String getSobrenome() {
-		return sobrenome;
+	@Column(name = "nome_fantasia", nullable = false)
+	public String getNome_fantasia() {
+		return nome_fantasia;
 	}
 
-	public void setSobrenome(String sobrenome) {
-		this.sobrenome = sobrenome;
+	public void setNome_fantasia(String nome_fantasia) {
+		this.nome_fantasia = nome_fantasia;
 	}
 	
+	@Column(name = "cnpj", nullable = false)
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
 	@Column(name = "email", nullable = false)
 	public String getEmail() {
 		return email;
@@ -121,8 +132,8 @@ public class Cliente implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Cliente [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", email=" + email + ", senha="
-				+ senha + ", criadoEm=" + criadoEm + ", atualizadoEm=" + atualizadoEm + ", deletadoEm=" + deletadoEm
-				+ ", perfil=" + perfil + "]";
+		return "CadastroPJ [id=" + id + ", razao_social=" + razao_social + ", nome_fantasia=" + nome_fantasia
+				+ ", email=" + email + ", senha=" + senha + ", cnpj=" + cnpj + ", criadoEm=" + criadoEm
+				+ ", atualizadoEm=" + atualizadoEm + ", deletadoEm=" + deletadoEm + ", perfil=" + perfil + "]";
 	}
 }
