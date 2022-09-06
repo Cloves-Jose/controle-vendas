@@ -33,7 +33,6 @@ public class Cliente implements Serializable{
 	private String atualizadoEm;
 	private String deletadoEm;
 	private PerfilEnum perfil;
-	private List<Funcionario> funcionarios;
 
 	public Cliente () {}
 	
@@ -118,16 +117,6 @@ public class Cliente implements Serializable{
 
 	public void setPerfil(PerfilEnum perfil) {
 		this.perfil = perfil;
-	}
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cliente_id")
-	public List<Funcionario> getFuncionarios() {
-		return funcionarios;
-	}
-
-	public void setFuncionarios(List<Funcionario> funcionarios) {
-		this.funcionarios = funcionarios;
 	}
 
 	@Override
