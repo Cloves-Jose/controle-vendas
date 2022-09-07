@@ -127,7 +127,11 @@ public class CadastroPJController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		if("")
+		if(cadastroPj.filter(cliPJ -> cliPJ.getDeletadoEm() != null).isPresent()) {
+			log.info("O cliente já encontra-se desativado.");
+			response.getErrors().add("Erro ao remover cliente. O cliente já foi removido.");
+			return ResponseEntity.badRequest().body(response);
+		}
 		
 		this.cadastroPJService.deletar(id, formatarData(new Date()));
 		return ResponseEntity.ok(new Response<String>());
