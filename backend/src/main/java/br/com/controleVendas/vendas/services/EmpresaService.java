@@ -2,14 +2,14 @@ package br.com.controleVendas.vendas.services;
 
 import java.util.Optional;
 
-import br.com.controleVendas.vendas.entities.CadastroPJ;
+import br.com.controleVendas.vendas.entities.Empresa;
 
 /**
  * 
  * @author Cloves José
  *
  */
-public interface CadastroPJService {
+public interface EmpresaService {
 	
 	/**
 	 * Retorna um cliente pelo email somente se ele estiver ativo
@@ -17,7 +17,7 @@ public interface CadastroPJService {
 	 * @param email
 	 * @return CadastroPJ
 	 */
-	Optional<CadastroPJ> buscarPorEmail(String email);
+	Optional<Empresa> buscarPorEmail(String email);
 	
 	/**
 	 * Verifica se o email já está cadastrado
@@ -25,7 +25,7 @@ public interface CadastroPJService {
 	 * @param email
 	 * @return CadastroPJ
 	 */
-	Optional<CadastroPJ> listarPorEmail(String email);
+	Optional<Empresa> listarPorEmail(String email);
 	
 	/**
 	 * Busca um cliente pelo ID
@@ -33,7 +33,7 @@ public interface CadastroPJService {
 	 * @param id
 	 * @return CadastroPJ
 	 */
-	Optional<CadastroPJ> buscarPorId(Long id);
+	Optional<Empresa> buscarPorId(Long id);
 	
 	/**
 	 * Retorna um cliente pelo id
@@ -41,7 +41,7 @@ public interface CadastroPJService {
 	 * @param id
 	 * @return CadastroPJ
 	 */
-	Optional<CadastroPJ> buscarPorCnpj(String cnpj);
+	Optional<Empresa> buscarPorCnpj(String cnpj);
 	
 	/**
 	 * Cadastra um novo cliente na base de dados
@@ -49,7 +49,7 @@ public interface CadastroPJService {
 	 * @param cliente
 	 * @return CadastroPJ
 	 */
-	CadastroPJ persistir(CadastroPJ cliente);
+	Empresa persistir(Empresa cliente);
 	
 	/**
 	 * Realiza o soft-delete de um cliente na base de dados

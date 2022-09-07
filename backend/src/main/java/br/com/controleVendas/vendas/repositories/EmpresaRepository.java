@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.controleVendas.vendas.entities.CadastroPJ;
+import br.com.controleVendas.vendas.entities.Empresa;
 
 /**
  * 
@@ -15,21 +15,21 @@ import br.com.controleVendas.vendas.entities.CadastroPJ;
  *
  */
 @Repository
-public interface CadastroPJRepository extends JpaRepository<CadastroPJ, Long>{
+public interface EmpresaRepository extends JpaRepository<Empresa, Long>{
 	
 	@Transactional(readOnly = true)
-	CadastroPJ findByEmail(@Param("email") String email);
+	Empresa findByEmail(@Param("email") String email);
 	
 	@Transactional(readOnly = true)
-	CadastroPJ findByCnpj(@Param("cnpj") String cnpj);
+	Empresa findByCnpj(@Param("cnpj") String cnpj);
 	
 	@Modifying(clearAutomatically = true)
 	@Transactional(readOnly = false)
-	@Query("UPDATE CadastroPJ c SET c.deletadoEm =:data WHERE c.id =:id")
+	@Query("UPDATE Empresa e SET e.deletadoEm =:data WHERE e.id =:id")
 	void deleteCliente(@Param("id")Long id, @Param("data")String data);
 	
 	@Modifying(clearAutomatically = true)
 	@Transactional(readOnly = false)
-	@Query("UPDATE CadastroPJ c SET c.deletadoEm =:valor WHERE c.cnpj =:cnpj")
+	@Query("UPDATE Empresa e SET e.deletadoEm =:valor WHERE e.cnpj =:cnpj")
 	void recuperarCliente(@Param("cnpj")String cnpj, @Param("valor") String valor);
 }

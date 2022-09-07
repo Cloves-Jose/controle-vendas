@@ -1,19 +1,12 @@
 package br.com.controleVendas.vendas.entities;
 
 import java.io.Serializable;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.Length;
 
 import br.com.controleVendas.vendas.enums.PerfilEnum;
 
@@ -21,8 +14,8 @@ import br.com.controleVendas.vendas.enums.PerfilEnum;
  * @author Cloves José
  */
 @Entity
-@Table(name = "cadastro_pj")
-public class CadastroPJ implements Serializable{
+@Table(name = "empresa")
+public class Empresa implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -37,7 +30,7 @@ public class CadastroPJ implements Serializable{
 	private String deletadoEm;
 	private PerfilEnum perfil;
 
-	public CadastroPJ () {}
+	public Empresa () {}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
