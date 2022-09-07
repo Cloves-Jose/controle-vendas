@@ -3,6 +3,8 @@ package br.com.controleVendas.vendas.controller;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -97,9 +99,14 @@ public class CadastroPJController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
+		if(cadastroPj.filter(cliPJ -> cliPJ.getDeletadoEm() == null).isPresent()) {
+			log.info("O cliente já encontra-se ativo");
+			response.getErrors().add("Erro ao recuperar cliente. O cliente encontra-se ativado.");
+			return ResponseEntity.badRequest().body(response);
+		}
+		
 		this.cadastroPJService.recuperarDeletado(cnpj);
-		response.getErrors().add("Cliente já encontra-se ativado");
-		return ResponseEntity.badRequest().body(response);
+		return ResponseEntity.ok(new Response<String>());
 	}
 	
 	/**
@@ -112,13 +119,15 @@ public class CadastroPJController {
 	public ResponseEntity<Response<String>> remover(@PathVariable("id") Long id) {
 		log.info("Remover cliente: {}", id);
 		Response<String> response = new Response<String>();
-		Optional<CadastroPJ> cliente = this.cadastroPJService.buscarPorId(id);
+		Optional<CadastroPJ> cadastroPj = this.cadastroPJService.buscarPorId(id);
 		
-		if(!cliente.isPresent()) {
+		if(!cadastroPj.isPresent()) {
 			log.info("Erro ao remover devido ao cliente ID: {} ser inválido.", id);
 			response.getErrors().add("Erro ao remover cliente. Resgistro não encontrado para o id " + id);
 			return ResponseEntity.badRequest().body(response);
 		}
+		
+		if("")
 		
 		this.cadastroPJService.deletar(id, formatarData(new Date()));
 		return ResponseEntity.ok(new Response<String>());
