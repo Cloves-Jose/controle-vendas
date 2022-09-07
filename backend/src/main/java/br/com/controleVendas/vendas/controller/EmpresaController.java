@@ -29,12 +29,7 @@ import br.com.controleVendas.vendas.response.Response;
 import br.com.controleVendas.vendas.services.EmpresaService;
 import br.com.controleVendas.vendas.utils.PasswordUtils;
 
-/**
- * 
- * @author Cloves José
- * 
- *
- */
+
 
 @RestController
 @RequestMapping("/api/empresa")
@@ -104,7 +99,9 @@ public class EmpresaController {
 		}
 		
 		this.empresaService.recuperarDeletado(cnpj);
-		return ResponseEntity.ok(new Response<String>());
+		log.info("Empresa ativada com sucesso!");
+		response.setData("Empresa ativada com sucesso!");
+		return ResponseEntity.ok(response);
 	}
 	
 	/**
@@ -132,7 +129,9 @@ public class EmpresaController {
 		}
 		
 		this.empresaService.deletar(id, formatarData(new Date()));
-		return ResponseEntity.ok(new Response<String>());
+		log.info("Empresa deletada com sucesso");
+		response.setData("Empresa deletada com sucesso");
+		return ResponseEntity.ok(response);
 	}
 	
 	/**

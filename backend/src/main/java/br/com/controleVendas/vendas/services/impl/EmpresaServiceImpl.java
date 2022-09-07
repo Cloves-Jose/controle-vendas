@@ -11,11 +11,7 @@ import br.com.controleVendas.vendas.entities.Empresa;
 import br.com.controleVendas.vendas.repositories.EmpresaRepository;
 import br.com.controleVendas.vendas.services.EmpresaService;
 
-/**
- * 
- * @author Cloves José
- *
- */
+
 @Service
 public class EmpresaServiceImpl implements EmpresaService{
 	

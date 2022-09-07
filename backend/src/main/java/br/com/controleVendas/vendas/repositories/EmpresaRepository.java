@@ -9,11 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.controleVendas.vendas.entities.Empresa;
 
-/**
- * 
- * @author Cloves José
- *
- */
+
 @Repository
 public interface EmpresaRepository extends JpaRepository<Empresa, Long>{
 	

@@ -4,11 +4,7 @@ import java.util.Optional;
 
 import br.com.controleVendas.vendas.entities.Empresa;
 
-/**
- * 
- * @author Cloves José
- *
- */
+
 public interface EmpresaService {
 	
 	/**
