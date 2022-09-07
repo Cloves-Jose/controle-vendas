@@ -58,7 +58,7 @@ public class EmpresaController {
 		Response<EmpresaDto> response = new Response<EmpresaDto>();
 		
 		validarDadosExistentes(empresaDto, result);
-		Empresa empresa = this.converterDtoParaEmpresa(empresaDto, result);
+		Empresa empresa = converterDtoParaEmpresa(empresaDto, result);
 		
 		if (result.hasErrors()) {
 			log.error("Erro ao validar dados da empresa: {}", result.getAllErrors());
@@ -68,7 +68,7 @@ public class EmpresaController {
 		
 		this.empresaService.persistir(empresa);
 		
-		response.setData(this.converterEmpresaDto(empresa));
+		response.setData(converterEmpresaDto(empresa));
 		return ResponseEntity.ok(response);
 		
 	}
@@ -84,7 +84,7 @@ public class EmpresaController {
 	public ResponseEntity<Response<String>> recuperar(@PathVariable("cnpj") String cnpj) {
 		log.info("Recuperando PJ: {}", cnpj);
 		Response<String> response = new Response<String>();
-		Optional<Empresa> empresa = this.empresaService.buscarPorCnpj(cnpj);
+		Optional<Empresa> empresa = empresaService.buscarPorCnpj(cnpj);
 		
 		if(!empresa.isPresent()) {
 			log.info("Erro ao recuperar empresa desativada. CNPJ: {} inválido", cnpj);
@@ -98,7 +98,7 @@ public class EmpresaController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		this.empresaService.recuperarDeletado(cnpj);
+		empresaService.recuperarDeletado(cnpj);
 		log.info("Empresa ativada com sucesso!");
 		response.setData("Empresa ativada com sucesso!");
 		return ResponseEntity.ok(response);
@@ -114,7 +114,7 @@ public class EmpresaController {
 	public ResponseEntity<Response<String>> remover(@PathVariable("id") Long id) {
 		log.info("Remover cliente: {}", id);
 		Response<String> response = new Response<String>();
-		Optional<Empresa> empresa = this.empresaService.buscarPorId(id);
+		Optional<Empresa> empresa = empresaService.buscarPorId(id);
 		
 		if(!empresa.isPresent()) {
 			log.info("Erro ao remover empresa devido ao ID: {} ser inválido.", id);
@@ -144,7 +144,7 @@ public class EmpresaController {
 	public ResponseEntity<Response<EmpresaDto>> buscarPorId(@PathVariable("clienteId") Long clienteId) {
 		log.info("Buscando cliente por Id: {}", clienteId);
 		Response<EmpresaDto> response = new Response<EmpresaDto>();
-		Optional<Empresa> empresa = this.empresaService.buscarPorId(clienteId);
+		Optional<Empresa> empresa = empresaService.buscarPorId(clienteId);
 		
 		if(!empresa.isPresent()) {
 			log.info("Empresa não encontrado para o ID: {}", clienteId);
@@ -166,7 +166,7 @@ public class EmpresaController {
 	public ResponseEntity<Response<EmpresaDto>> buscaPorEmail(@PathVariable("email") String email) {
 		log.info("Buscando cliente por email: {}", email);
 		Response<EmpresaDto> response = new Response<EmpresaDto>();
-		Optional<Empresa> empresa = this.empresaService.buscarPorEmail(email);
+		Optional<Empresa> empresa = empresaService.buscarPorEmail(email);
 		
 		if(!empresa.isPresent()) {
 			log.info("Empresa não encontrada para o email: {}", email);

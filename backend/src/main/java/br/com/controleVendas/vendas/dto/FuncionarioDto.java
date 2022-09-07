@@ -1,23 +1,12 @@
-package br.com.controleVendas.vendas.entities;
+package br.com.controleVendas.vendas.dto;
 
-import java.io.Serializable;
+import javax.validation.constraints.NotEmpty;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import org.hibernate.validator.constraints.Length;
 
 import br.com.controleVendas.vendas.enums.PerfilEnum;
 
-@Entity
-@Table(name = "funcionario")
-public class Funcionario implements Serializable{
-
-	private static final long serialVersionUID = 1L;
+public class FuncionarioDto {
 	
 	private Long id;
 	private String nome;
@@ -36,12 +25,9 @@ public class Funcionario implements Serializable{
 	private String pis;
 	private String cargo;
 	private PerfilEnum perfil;
-	private Empresa empresa;
 	
-	public Funcionario() {}
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	public FuncionarioDto() {}
+
 	public Long getId() {
 		return id;
 	}
@@ -50,7 +36,8 @@ public class Funcionario implements Serializable{
 		this.id = id;
 	}
 	
-	@Column(name = "nome", nullable = false)
+	@NotEmpty(message = "Nome não pode ser vazio")
+	@Length(min = 3, max = 200, message = "O nome deve conter entre 3 e 200 caracteres")
 	public String getNome() {
 		return nome;
 	}
@@ -59,7 +46,8 @@ public class Funcionario implements Serializable{
 		this.nome = nome;
 	}
 	
-	@Column(name = "sobrenome", nullable = false)
+	@NotEmpty(message = "Sobrenome não pode ser vazio")
+	@Length(min = 3, max = 200, message = "O sobrenome deve conter entre 3 e 200 caracteres")
 	public String getSobrenome() {
 		return sobrenome;
 	}
@@ -68,7 +56,8 @@ public class Funcionario implements Serializable{
 		this.sobrenome = sobrenome;
 	}
 	
-	@Column(name = "data_nascimento", nullable = false)
+	@NotEmpty(message = "Data de nascimento obrigatória")
+	@Length(min = 8, max = 8, message = "A data de nascimento deve conter 8 caracteres")
 	public String getData_nascimento() {
 		return data_nascimento;
 	}
@@ -76,8 +65,7 @@ public class Funcionario implements Serializable{
 	public void setData_nascimento(String data_nascimento) {
 		this.data_nascimento = data_nascimento;
 	}
-	
-	@Column(name = "numero_residencia", nullable = false)
+
 	public String getNumero_residencia() {
 		return numero_residencia;
 	}
@@ -85,8 +73,15 @@ public class Funcionario implements Serializable{
 	public void setNumero_residencia(String numero_residencia) {
 		this.numero_residencia = numero_residencia;
 	}
-	
-	@Column(name = "rua", nullable = false)
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
 	public String getRua() {
 		return rua;
 	}
@@ -94,8 +89,7 @@ public class Funcionario implements Serializable{
 	public void setRua(String rua) {
 		this.rua = rua;
 	}
-	
-	@Column(name = "bairro", nullable = false)
+
 	public String getBairro() {
 		return bairro;
 	}
@@ -103,8 +97,7 @@ public class Funcionario implements Serializable{
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
-	
-	@Column(name = "cidade", nullable = false)
+
 	public String getCidade() {
 		return cidade;
 	}
@@ -112,8 +105,7 @@ public class Funcionario implements Serializable{
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
-	
-	@Column(name = "estado", nullable = false)
+
 	public String getEstado() {
 		return estado;
 	}
@@ -121,8 +113,7 @@ public class Funcionario implements Serializable{
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	
-	@Column(name = "cep", nullable = false)
+
 	public String getCep() {
 		return cep;
 	}
@@ -130,8 +121,7 @@ public class Funcionario implements Serializable{
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	
-	@Column(name = "atualizado_em", nullable = true)
+
 	public String getAtualizadoEm() {
 		return atualizadoEm;
 	}
@@ -139,8 +129,7 @@ public class Funcionario implements Serializable{
 	public void setAtualizadoEm(String atualizadoEm) {
 		this.atualizadoEm = atualizadoEm;
 	}
-	
-	@Column(name = "criado_em", nullable = true)
+
 	public String getCriadoEm() {
 		return criadoEm;
 	}
@@ -148,8 +137,7 @@ public class Funcionario implements Serializable{
 	public void setCriadoEm(String criadoEm) {
 		this.criadoEm = criadoEm;
 	}
-	
-	@Column(name = "deletado_em", nullable = true)
+
 	public String getDeletadoEm() {
 		return deletadoEm;
 	}
@@ -157,8 +145,7 @@ public class Funcionario implements Serializable{
 	public void setDeletadoEm(String deletadoEm) {
 		this.deletadoEm = deletadoEm;
 	}
-	
-	@Column(name = "pis", nullable = false)
+
 	public String getPis() {
 		return pis;
 	}
@@ -166,8 +153,15 @@ public class Funcionario implements Serializable{
 	public void setPis(String pis) {
 		this.pis = pis;
 	}
-	
-	@Column(name = "perfil", nullable = false)
+
+	public String getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
+
 	public PerfilEnum getPerfil() {
 		return perfil;
 	}
@@ -176,32 +170,6 @@ public class Funcionario implements Serializable{
 		this.perfil = perfil;
 	}
 	
-	@Column(name = "cargo", nullable = false)
-	public String getCargo() {
-		return cargo;
-	}
+	
 
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
-	}
-	
-	@Column(name = "cpf", nullable = false)
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
-	
-	
 }

@@ -32,19 +32,25 @@ public class FuncionarioServiceImpl implements FuncionarioService{
 
 	@Override
 	public Optional<Funcionario> buscarPorPis(String pis) {
-		// TODO Auto-generated method stub
+		Funcionario consulta = funcionarioRepository.findByPis(pis);
+		
+		if(consulta.getDeletadoEm() != null) {
+			log.info("Buscando por funcionario de PIS: {}", pis);
+			return Optional.ofNullable(consulta);
+		}
+		
+		log.info("Nenhum funcionario encontrado.");
 		return Optional.empty();
 	}
 
 	@Override
 	public Optional<Funcionario> buscarPorCpf(String cpf) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
-	}
-
-	@Override
-	public Optional<Funcionario> buscarPorCargo(String cargo) {
-		// TODO Auto-generated method stub
+		Funcionario consulta = funcionarioRepository.findByCpf(cpf);
+		
+		if(consulta.getDeletadoEm() != null) {
+			log.info("Buscando por funcionario de CPF: {}", cpf);
+			return Optional.ofNullable(consulta);
+		}
 		return Optional.empty();
 	}
 

@@ -38,13 +38,6 @@ public interface FuncionarioService {
 	Optional<Funcionario> buscarPorCpf(String cpf);
 	
 	/**
-	 * 
-	 * @param cargo
-	 * @return Funcionario
-	 */
-	Optional<Funcionario> buscarPorCargo(String cargo);
-	
-	/**
 	 * Ativa o funcionário na base de dados.
 	 * 
 	 * @param cpf
