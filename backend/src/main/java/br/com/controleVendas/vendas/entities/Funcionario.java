@@ -23,6 +23,7 @@ public class Funcionario implements Serializable{
 	private String data_nascimento;
 	private String idade;
 	private String numero_residencia;
+	private String cpf;
 	private String rua;
 	private String bairro;
 	private String cidade;
@@ -189,6 +190,15 @@ public class Funcionario implements Serializable{
 
 	public void setCargo(String cargo) {
 		this.cargo = cargo;
+	}
+	
+	@Column(name = "cpf", nullable = false)
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 	
 	
