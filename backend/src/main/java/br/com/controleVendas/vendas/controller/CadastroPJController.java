@@ -22,11 +22,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.controleVendas.vendas.dto.ClienteDto;
+import br.com.controleVendas.vendas.dto.CadastroPJDto;
 import br.com.controleVendas.vendas.entities.CadastroPJ;
 import br.com.controleVendas.vendas.enums.PerfilEnum;
 import br.com.controleVendas.vendas.response.Response;
-import br.com.controleVendas.vendas.services.ClienteService;
+import br.com.controleVendas.vendas.services.CadastroPJService;
 import br.com.controleVendas.vendas.utils.PasswordUtils;
 
 /**
@@ -39,14 +39,14 @@ import br.com.controleVendas.vendas.utils.PasswordUtils;
 @RestController
 @RequestMapping("/api/cliente")
 @CrossOrigin(origins = "*")
-public class ClienteController {
+public class CadastroPJController {
 	
-	private static final Logger log = LoggerFactory.getLogger(ClienteController.class);
+	private static final Logger log = LoggerFactory.getLogger(CadastroPJController.class);
 	
 	@Autowired
-	private ClienteService clienteService;
+	private CadastroPJService cadastroPJService;
 	
-	public ClienteController() {}
+	public CadastroPJController() {}
 	
 	/**
 	 * Cadastrar um novo cliente no sistema.
@@ -57,10 +57,10 @@ public class ClienteController {
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping
-	public ResponseEntity<Response<ClienteDto>> cadastrar(@Valid @RequestBody ClienteDto cadastroClienteDto, BindingResult result) 
+	public ResponseEntity<Response<CadastroPJDto>> cadastrar(@Valid @RequestBody CadastroPJDto cadastroClienteDto, BindingResult result) 
 		throws NoSuchAlgorithmException {
 		log.info("Cadastrando Cliente: {}", cadastroClienteDto.toString());
-		Response<ClienteDto> response = new Response<ClienteDto>();
+		Response<CadastroPJDto> response = new Response<CadastroPJDto>();
 		
 		validarDadosExistentes(cadastroClienteDto, result);
 		CadastroPJ cliente = this.converterDtoParaCliente(cadastroClienteDto, result);
@@ -71,11 +71,34 @@ public class ClienteController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		this.clienteService.persistir(cliente);
+		this.cadastroPJService.persistir(cliente);
 		
 		response.setData(this.converterClienteDto(cliente));
 		return ResponseEntity.ok(response);
 		
+	}
+	
+	/**
+	 * Ativar PJ desativado.
+	 * 
+	 * @param cnpj
+	 * @return
+	 */
+	
+	@PostMapping(value = "ativar/{cnpj}")
+	public ResponseEntity<Response<String>> recuperar(@PathVariable("cnpj") String cnpj) {
+		log.info("Recuperando PJ: {}", cnpj);
+		Response<String> response = new Response<String>();
+		Optional<CadastroPJ> cadastroPj = this.cadastroPJService.buscarPorCnpj(cnpj);
+		
+		if(!cadastroPj.isPresent()) {
+			log.info("Erro ao recuperar cliente desativado, CNPJ: {} inválido", cnpj);
+			response.getErrors().add("Erro ao recuperar cliente. Registro não encontrado para o CNPJ: " + cnpj);
+			return ResponseEntity.badRequest().body(response);
+		}
+		
+		this.cadastroPJService.recuperarDeletado(cnpj);
+		return ResponseEntity.ok(new Response<String>());
 	}
 	
 	/**
@@ -88,7 +111,7 @@ public class ClienteController {
 	public ResponseEntity<Response<String>> remover(@PathVariable("id") Long id) {
 		log.info("Remover cliente: {}", id);
 		Response<String> response = new Response<String>();
-		Optional<CadastroPJ> cliente = this.clienteService.buscarPorId(id);
+		Optional<CadastroPJ> cliente = this.cadastroPJService.buscarPorId(id);
 		
 		if(!cliente.isPresent()) {
 			log.info("Erro ao remover devido ao cliente ID: {} ser inválido.", id);
@@ -96,7 +119,7 @@ public class ClienteController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		this.clienteService.deletar(id, formatarData(new Date()));
+		this.cadastroPJService.deletar(id, formatarData(new Date()));
 		return ResponseEntity.ok(new Response<String>());
 	}
 	
@@ -107,10 +130,10 @@ public class ClienteController {
 	 * @return ResponseEntity<Response<ClienteDto>>
 	 */
 	@GetMapping(value = "/{clienteId}")
-	public ResponseEntity<Response<ClienteDto>> buscarPorId(@PathVariable("clienteId") Long clienteId) {
+	public ResponseEntity<Response<CadastroPJDto>> buscarPorId(@PathVariable("clienteId") Long clienteId) {
 		log.info("Buscando cliente por Id: {}", clienteId);
-		Response<ClienteDto> response = new Response<ClienteDto>();
-		Optional<CadastroPJ> cliente = this.clienteService.buscarPorId(clienteId);
+		Response<CadastroPJDto> response = new Response<CadastroPJDto>();
+		Optional<CadastroPJ> cliente = this.cadastroPJService.buscarPorId(clienteId);
 		
 		if(!cliente.isPresent()) {
 			log.info("Cliente não encontrado para o ID: {}", clienteId);
@@ -129,10 +152,10 @@ public class ClienteController {
 	 * @return ResponseEntity<Response<ClienteDto>>
 	 */
 	@GetMapping(value = "email/{email}")
-	public ResponseEntity<Response<ClienteDto>> buscaPorEmail(@PathVariable("email") String email) {
+	public ResponseEntity<Response<CadastroPJDto>> buscaPorEmail(@PathVariable("email") String email) {
 		log.info("Buscando cliente por email: {}", email);
-		Response<ClienteDto> response = new Response<ClienteDto>();
-		Optional<CadastroPJ> cliente = this.clienteService.buscarPorEmail(email);
+		Response<CadastroPJDto> response = new Response<CadastroPJDto>();
+		Optional<CadastroPJ> cliente = this.cadastroPJService.buscarPorEmail(email);
 		
 		if(!cliente.isPresent()) {
 			log.info("Cliente não encontrado para o email: {}", email);
@@ -149,8 +172,8 @@ public class ClienteController {
 	 * @param cliente
 	 * @return
 	 */
-	private ClienteDto converterClienteDto(CadastroPJ cliente) {
-		ClienteDto clienteDto = new ClienteDto();
+	private CadastroPJDto converterClienteDto(CadastroPJ cliente) {
+		CadastroPJDto clienteDto = new CadastroPJDto();
 		clienteDto.setId(cliente.getId());
 		clienteDto.setNome_fantasia(cliente.getNome_fantasia());
 		clienteDto.setRazao_social(cliente.getRazao_social());
@@ -171,7 +194,7 @@ public class ClienteController {
 	 * @return Cliente
 	 * @throws NoSuchAlgorithmException
 	 */
-	private CadastroPJ converterDtoParaCliente(@Valid ClienteDto cadastroClienteDto, BindingResult result) 
+	private CadastroPJ converterDtoParaCliente(@Valid CadastroPJDto cadastroClienteDto, BindingResult result) 
 		throws NoSuchAlgorithmException {
 		CadastroPJ cliente = new CadastroPJ();
 		cliente.setNome_fantasia(cadastroClienteDto.getNome_fantasia());
@@ -201,9 +224,12 @@ public class ClienteController {
 	 * @param clienteDto
 	 * @param result
 	 */
-	private void validarDadosExistentes(ClienteDto clienteDto, BindingResult result) {
+	private void validarDadosExistentes(CadastroPJDto cadastroPJDto, BindingResult result) {
 		
-		this.clienteService.listarPorEmail(clienteDto.getEmail())
+		this.cadastroPJService.listarPorEmail(cadastroPJDto.getEmail())
 			.ifPresent(cli -> result.addError(new ObjectError("cliente", "Email já existente.")));
+		
+		this.cadastroPJService.buscarPorCnpj(cadastroPJDto.getCnpj())
+			.ifPresent(cadPj -> result.addError(new ObjectError("cadastroPJ", "CNPJ já cadastrado")));
 	}
 }

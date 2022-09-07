@@ -21,7 +21,7 @@ import br.com.controleVendas.vendas.enums.PerfilEnum;
  * @author Cloves José
  */
 @Entity
-@Table(name = "cliente")
+@Table(name = "cadastro_pj")
 public class CadastroPJ implements Serializable{
 
 	private static final long serialVersionUID = 1L;

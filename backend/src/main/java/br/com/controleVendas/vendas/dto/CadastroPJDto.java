@@ -11,7 +11,7 @@ import br.com.controleVendas.vendas.enums.PerfilEnum;
  * @author Cloves José
  *
  */
-public class ClienteDto {
+public class CadastroPJDto {
 	
 	private Long id;
 	private String razao_social;
@@ -24,7 +24,7 @@ public class ClienteDto {
 	private String deletadoEm;
 	private PerfilEnum perfil;
 	
-	public ClienteDto() {}
+	public CadastroPJDto() {}
 
 	public Long getId() {
 		return id;
