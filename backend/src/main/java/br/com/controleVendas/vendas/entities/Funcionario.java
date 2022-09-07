@@ -32,6 +32,7 @@ public class Funcionario implements Serializable{
 	private String criadoEm;
 	private String deletadoEm;
 	private String pis;
+	private String cargo;
 	private PerfilEnum perfil;
 	
 	public Funcionario() {}
@@ -180,4 +181,15 @@ public class Funcionario implements Serializable{
 	public void setPerfil(PerfilEnum perfil) {
 		this.perfil = perfil;
 	}
+	
+	@Column(name = "cargo", nullable = false)
+	public String getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
+	
+	
 }
