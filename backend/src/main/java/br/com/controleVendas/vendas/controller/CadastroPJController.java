@@ -98,7 +98,8 @@ public class CadastroPJController {
 		}
 		
 		this.cadastroPJService.recuperarDeletado(cnpj);
-		return ResponseEntity.ok(new Response<String>());
+		response.getErrors().add("Cliente já encontra-se ativado");
+		return ResponseEntity.badRequest().body(response);
 	}
 	
 	/**

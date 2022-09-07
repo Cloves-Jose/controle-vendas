@@ -72,8 +72,13 @@ public class CadastroPJServiceImpl implements CadastroPJService{
 
 	@Override
 	public void recuperarDeletado(String cnpj) {
-		log.info("Recuperando cnpj {} deletado", cnpj);
-		this.cadastroPJRepository.recuperarCliente(cnpj, null);
+		CadastroPJ consulta = this.cadastroPJRepository.findByCnpj(cnpj);
+		
+		if(consulta.getDeletadoEm() != null) {
+			log.info("Recuperando cnpj: {} deletado", cnpj);
+			this.cadastroPJRepository.recuperarCliente(cnpj, null);
+		}
+		log.info("Não existe registro para o cnpj informado");
 	}
 
 }
