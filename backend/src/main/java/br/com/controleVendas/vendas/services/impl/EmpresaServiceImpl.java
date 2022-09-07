@@ -36,14 +36,14 @@ public class EmpresaServiceImpl implements EmpresaService{
 	@Override
 	public Empresa persistir(Empresa cliente) {
 		log.info("Persistindo cliente na base de dados {}", cliente);
-		return this.empresaRepository.save(cliente);
+		return empresaRepository.save(cliente);
 	}
 	
 	
 	@Override
 	public void deletar(Long id, String data) {
 		log.info("Deletando cliente da base de dados");
-		this.empresaRepository.deleteCliente(id, data);
+		empresaRepository.deleteCliente(id, data);
 	}
 	
 
@@ -72,7 +72,7 @@ public class EmpresaServiceImpl implements EmpresaService{
 		
 		if(consulta.getDeletadoEm() != null) {
 			log.info("Recuperando cnpj: {} deletado", cnpj);
-			this.empresaRepository.recuperarCliente(cnpj, null);
+			empresaRepository.recuperarCliente(cnpj, null);
 		}
 		log.info("Não existe registro para o cnpj informado");
 	}
