@@ -22,20 +22,20 @@ public interface FuncionarioService {
 	void deletar(String data, Long id);
 	
 	/**
-	 * Buscar funcionario pelo número do pis
+	 * Retorna somente os funcionários ativos na base de dados.
 	 * 
 	 * @param pis
 	 * @return Funcionario
 	 */
-	Optional<Funcionario> buscarPorPis(String pis);
+	Optional<Funcionario> listarPorPis(String pis);
 	
 	/**
-	 * Buscar funcionário pelo número do cpf
+	 * Retorna somente os funcionários ativos na base de dados.
 	 * 
 	 * @param cpf
 	 * @return Funcionario
 	 */
-	Optional<Funcionario> buscarPorCpf(String cpf);
+	Optional<Funcionario> listarPorCpf(String cpf);
 	
 	/**
 	 * Ativa o funcionário na base de dados.
@@ -43,5 +43,21 @@ public interface FuncionarioService {
 	 * @param cpf
 	 */
 	void ativar(String cpf);
+	
+	/**
+	 * Retorna todos os funcionários da base de dados.
+	 * 
+	 * @param pis
+	 * @return Funcionario
+	 */
+	Optional<Funcionario> buscarPorPis(String pis);
+	
+	/**
+	 * Retorna todos os funcionários da base de dados.
+	 * 
+	 * @param cpf
+	 * @return Funcionario
+	 */
+	Optional<Funcionario> buscarPorCpf(String cpf);
 
 }

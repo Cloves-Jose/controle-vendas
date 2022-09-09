@@ -1,8 +1,10 @@
 package br.com.controleVendas.vendas.dto;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 
 import br.com.controleVendas.vendas.enums.PerfilEnum;
@@ -16,6 +18,8 @@ public class FuncionarioDto {
 	private String numero_residencia;
 	private String cpf;
 	private String rua;
+	private String email;
+	private String senha;
 	private String bairro;
 	private String cidade;
 	private String estado;
@@ -25,6 +29,7 @@ public class FuncionarioDto {
 	private String deletadoEm;
 	private String pis;
 	private String cargo;
+	private String cnpj;
 	private PerfilEnum perfil;
 	
 	public FuncionarioDto() {}
@@ -180,6 +185,36 @@ public class FuncionarioDto {
 
 	public void setPerfil(PerfilEnum perfil) {
 		this.perfil = perfil;
+	}
+	
+	@NotEmpty(message = "CNPJ deve ser informado")
+	@CNPJ(message = "CNPJ deve ser válido")
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+	
+	@NotEmpty(message = "Email deve ser informado")
+	@Email(message = "Email deve ser informado.")
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	@NotEmpty(message = "Senha deve ser informada")
+	@Length(min = 3, max = 200, message = "A senha deve ter entre 3 e 200 caracteres.")
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 	
 	

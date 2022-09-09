@@ -5,11 +5,13 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.controleVendas.vendas.entities.Funcionario;
 import br.com.controleVendas.vendas.repositories.FuncionarioRepository;
 import br.com.controleVendas.vendas.services.FuncionarioService;
 
+@Service
 public class FuncionarioServiceImpl implements FuncionarioService{
 	
 	@Autowired
@@ -31,7 +33,7 @@ public class FuncionarioServiceImpl implements FuncionarioService{
 	}
 
 	@Override
-	public Optional<Funcionario> buscarPorPis(String pis) {
+	public Optional<Funcionario> listarPorPis(String pis) {
 		Funcionario consulta = funcionarioRepository.findByPis(pis);
 		
 		if(consulta.getDeletadoEm() != null) {
@@ -44,7 +46,7 @@ public class FuncionarioServiceImpl implements FuncionarioService{
 	}
 
 	@Override
-	public Optional<Funcionario> buscarPorCpf(String cpf) {
+	public Optional<Funcionario> listarPorCpf(String cpf) {
 		Funcionario consulta = funcionarioRepository.findByCpf(cpf);
 		
 		if(consulta.getDeletadoEm() != null) {
@@ -59,6 +61,18 @@ public class FuncionarioServiceImpl implements FuncionarioService{
 		log.info("Ativando o funcionario na base de dados");
 		funcionarioRepository.ativarFuncionario(cpf, null);
 		
+	}
+
+	@Override
+	public Optional<Funcionario> buscarPorPis(String pis) {
+		log.info("Buscando por funcionario de PIS: {}", pis);
+		return Optional.ofNullable(funcionarioRepository.findByPis(pis));
+	}
+
+	@Override
+	public Optional<Funcionario> buscarPorCpf(String cpf) {
+		log.info("Buscando por funcionario de CPF: {}", cpf);
+		return Optional.ofNullable(funcionarioRepository.findByCpf(cpf));
 	}
 
 }

@@ -25,6 +25,8 @@ public class Funcionario implements Serializable{
 	private String data_nascimento;
 	private String numero_residencia;
 	private String cpf;
+	private String email;
+	private String senha;
 	private String rua;
 	private String bairro;
 	private String cidade;
@@ -194,6 +196,24 @@ public class Funcionario implements Serializable{
 		this.cpf = cpf;
 	}
 	
+	@Column(name = "email", nullable = false)
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	@Column(name = "senha", nullable = false)
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	public Empresa getEmpresa() {
 		return empresa;
