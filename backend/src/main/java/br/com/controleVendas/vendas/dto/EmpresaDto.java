@@ -4,6 +4,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CNPJ;
 
 import br.com.controleVendas.vendas.enums.PerfilEnum;
 
@@ -54,7 +55,7 @@ public class EmpresaDto {
 
 	
 	@NotEmpty(message = "CNPJ não pode ser vazio")
-	@Length(min = 14, max = 14, message = "CNPJ deve conter exatamente 14 caracteres.")
+	@CNPJ(message = "CNPJ não pode ser vazio.")
 	public String getCnpj() {
 		return cnpj;
 	}

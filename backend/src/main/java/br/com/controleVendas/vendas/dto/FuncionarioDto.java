@@ -3,6 +3,7 @@ package br.com.controleVendas.vendas.dto;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 import br.com.controleVendas.vendas.enums.PerfilEnum;
 
@@ -65,7 +66,9 @@ public class FuncionarioDto {
 	public void setData_nascimento(String data_nascimento) {
 		this.data_nascimento = data_nascimento;
 	}
-
+	
+	@NotEmpty(message = "Número residencial não pode ser vazio")
+	@Length(min = 1, max = 5, message = "O número residencial deve conter entre 1 e 5 caracteres")
 	public String getNumero_residencia() {
 		return numero_residencia;
 	}
@@ -73,7 +76,9 @@ public class FuncionarioDto {
 	public void setNumero_residencia(String numero_residencia) {
 		this.numero_residencia = numero_residencia;
 	}
-
+	
+	@NotEmpty(message = "CPF não pode ser vazio")
+	@CPF(message = "O CPF não pode ser vazio.")
 	public String getCpf() {
 		return cpf;
 	}
@@ -81,7 +86,7 @@ public class FuncionarioDto {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-
+	
 	public String getRua() {
 		return rua;
 	}
@@ -113,7 +118,9 @@ public class FuncionarioDto {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-
+	
+	@NotEmpty(message = "CEP deve ser preenchido")
+	@Length(min = 8, max = 8)
 	public String getCep() {
 		return cep;
 	}
@@ -121,7 +128,7 @@ public class FuncionarioDto {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-
+	
 	public String getAtualizadoEm() {
 		return atualizadoEm;
 	}
@@ -145,7 +152,9 @@ public class FuncionarioDto {
 	public void setDeletadoEm(String deletadoEm) {
 		this.deletadoEm = deletadoEm;
 	}
-
+	
+	@NotEmpty(message = "PIS deve ser informado")
+	@Length(min = 10, max = 11, message = "PIS deve ser informado.")
 	public String getPis() {
 		return pis;
 	}
@@ -153,7 +162,9 @@ public class FuncionarioDto {
 	public void setPis(String pis) {
 		this.pis = pis;
 	}
-
+	
+	@NotEmpty(message = "Cargo deve ser informado.")
+	@Length(min = 10, max = 20, message = "Cargo deve ser informado.")
 	public String getCargo() {
 		return cargo;
 	}
@@ -161,7 +172,8 @@ public class FuncionarioDto {
 	public void setCargo(String cargo) {
 		this.cargo = cargo;
 	}
-
+	
+	@NotEmpty(message = "Perfil deve ser informado")
 	public PerfilEnum getPerfil() {
 		return perfil;
 	}
