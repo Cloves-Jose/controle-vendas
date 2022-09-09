@@ -63,7 +63,7 @@ public class FuncionarioDto {
 	}
 	
 	@NotEmpty(message = "Data de nascimento obrigatória")
-	@Length(min = 8, max = 8, message = "A data de nascimento deve conter 8 caracteres")
+	@Length(min = 10, max = 10, message = "A data de nascimento deve conter 10 caracteres")
 	public String getData_nascimento() {
 		return data_nascimento;
 	}
@@ -169,7 +169,7 @@ public class FuncionarioDto {
 	}
 	
 	@NotEmpty(message = "Cargo deve ser informado.")
-	@Length(min = 10, max = 20, message = "Cargo deve ser informado.")
+	@Length(min = 3, max = 20, message = "Cargo deve ser informado.")
 	public String getCargo() {
 		return cargo;
 	}
@@ -178,7 +178,7 @@ public class FuncionarioDto {
 		this.cargo = cargo;
 	}
 	
-	@NotEmpty(message = "Perfil deve ser informado")
+	
 	public PerfilEnum getPerfil() {
 		return perfil;
 	}
