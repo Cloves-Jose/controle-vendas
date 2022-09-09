@@ -45,7 +45,7 @@ public interface FuncionarioService {
 	void ativar(String cpf);
 	
 	/**
-	 * Retorna todos os funcionários da base de dados.
+	 * Retorna funcionário independente dele estar ativo ou não.
 	 * 
 	 * @param pis
 	 * @return Funcionario
@@ -53,7 +53,7 @@ public interface FuncionarioService {
 	Optional<Funcionario> buscarPorPis(String pis);
 	
 	/**
-	 * Retorna todos os funcionários da base de dados.
+	 * Retorna funcionário independente dele estar ativo ou não.
 	 * 
 	 * @param cpf
 	 * @return Funcionario
