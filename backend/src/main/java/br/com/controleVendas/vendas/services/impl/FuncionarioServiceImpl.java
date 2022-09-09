@@ -75,4 +75,10 @@ public class FuncionarioServiceImpl implements FuncionarioService{
 		return Optional.ofNullable(funcionarioRepository.findByCpf(cpf));
 	}
 
+	@Override
+	public Optional<Funcionario> buscarPorEmail(String email) {
+		log.info("Buscando por funcionário de Email: {}", email);
+		return Optional.ofNullable(funcionarioRepository.findByEmail(email));
+	}
+
 }

@@ -164,5 +164,8 @@ public class FuncionarioController {
 		funcionarioService.buscarPorPis(funcionarioDto.getPis())
 			.ifPresent(func -> result.addError(new ObjectError("funcionario", "PIS já cadastrado")));
 		
+		funcionarioService.buscarPorEmail(funcionarioDto.getEmail())
+			.ifPresent(func -> result.addError(new ObjectError("funcionario", "Email já cadastrado")));
+		
 	}
 }

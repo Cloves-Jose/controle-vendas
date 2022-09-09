@@ -59,5 +59,12 @@ public interface FuncionarioService {
 	 * @return Funcionario
 	 */
 	Optional<Funcionario> buscarPorCpf(String cpf);
-
+	
+	/**
+	 * Retorna funcionário independente dele estar ativo ou não.
+	 * 
+	 * @param email
+	 * @return Funcionario
+	 */
+	Optional<Funcionario> buscarPorEmail(String email);
 }
