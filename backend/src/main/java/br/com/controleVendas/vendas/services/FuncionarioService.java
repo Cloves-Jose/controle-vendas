@@ -2,6 +2,9 @@ package br.com.controleVendas.vendas.services;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import br.com.controleVendas.vendas.entities.Funcionario;
 
 public interface FuncionarioService {
@@ -82,5 +85,5 @@ public interface FuncionarioService {
 	 * @param empresa_id
 	 * @return Funcionario
 	 */
-	Optional<Funcionario> listarAssociados(Long empresa_id);
+	Page<Funcionario> listarAssociados(Long empresa_id, PageRequest pageRequest);
 }

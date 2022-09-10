@@ -30,4 +30,6 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long>{
 	
 	@Transactional(readOnly = true)
 	Funcionario findByEmail(String email);
+	
+	
 }

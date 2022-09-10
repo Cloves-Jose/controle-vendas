@@ -1,12 +1,12 @@
 package br.com.controleVendas.vendas.services.impl;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import br.com.controleVendas.vendas.entities.Funcionario;
@@ -95,12 +95,18 @@ public class FuncionarioServiceImpl implements FuncionarioService{
 	}
 
 	@Override
-	public Optional<Funcionario> listarAssociados(Long empresa_id) {
-		List<Funcionario> consulta = funcionarioRepository.findAll();
+	public Page<Funcionario> listarAssociados(Long empresa_id, PageRequest pageRequest) {
+		Page<Funcionario> consulta = funcionarioRepository.findAll(pageRequest);
 		
-		System.out.println(consulta);
+		if(consulta.stream().anyMatch(cons -> cons.getEmpresa().getId() == empresa_id)) {
+			log.info("Buscando por funcionários vinculados a empresa.");
+			return consulta;
+		}
 		
+		log.info("Nenhum registro foi encontrado.");
 		return null;
 	}
+
+	
 
 }
