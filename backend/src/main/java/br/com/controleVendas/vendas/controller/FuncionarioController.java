@@ -144,7 +144,7 @@ public class FuncionarioController {
 	}
 	
 	/**
-	 * Retorna a listagem paginada de funcionário vinculados a empresa.
+	 * Retorna a listagem paginadas de funcionário vinculados a empresa.
 	 * 
 	 * @param empresa_id
 	 * @return FuncionarioDto

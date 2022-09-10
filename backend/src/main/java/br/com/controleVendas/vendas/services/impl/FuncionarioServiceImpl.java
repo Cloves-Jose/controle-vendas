@@ -104,9 +104,6 @@ public class FuncionarioServiceImpl implements FuncionarioService{
 		}
 		
 		log.info("Nenhum registro foi encontrado.");
-		return null;
+		return Page.empty();
 	}
-
-	
-
 }
