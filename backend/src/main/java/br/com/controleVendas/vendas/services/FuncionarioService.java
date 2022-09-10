@@ -80,7 +80,7 @@ public interface FuncionarioService {
 	Optional<Funcionario> listarPorId(Long id);
 	
 	/**
-	 * Retorna os funcionário vinculados a empresa;
+	 * Retorna os funcionário vinculados ao cliente logado;
 	 * 
 	 * @param empresa_id
 	 * @return Funcionario
