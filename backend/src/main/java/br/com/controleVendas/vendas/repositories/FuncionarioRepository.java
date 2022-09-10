@@ -13,23 +13,21 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long>{
 	@Modifying(clearAutomatically = true)
 	@Transactional(readOnly = false)
 	@Query("UPDATE Funcionario f SET f.deletadoEm =:data WHERE f.id =:id")
-	void deletarFuncionario(@Param("data")String data, @Param("id")Long id);
+	void deletarFuncionario(@Param("data")String data, 
+			@Param("id")Long id);
 	
 	@Modifying(clearAutomatically = true)
 	@Transactional(readOnly = false)
-	@Query("UPDATE Funcionario f SET f.deletadoEm =: valor WHERE f.cpf =: cpf")
-	void ativarFuncionario(@Param("cpf") String cpf, @Param("valor") String valor);
+	@Query("UPDATE Funcionario f SET f.deletadoEm =:valor WHERE f.cpf =:cpf")
+	void ativarFuncionario(@Param("cpf") String cpf, 
+			@Param("valor") String valor);
 	
 	@Transactional(readOnly = true)
-	Funcionario findByPis(@Param("pis")String pis);
+	Funcionario findByPis(String pis);
 	
 	@Transactional(readOnly = true)
-	Funcionario findByCpf(@Param("cpf")String cpf);
+	Funcionario findByCpf(String cpf);
 	
 	@Transactional(readOnly = true)
-	Funcionario findByCargo(@Param("cargo")String cargo);
-	
-	@Transactional(readOnly = true )
 	Funcionario findByEmail(String email);
-
 }

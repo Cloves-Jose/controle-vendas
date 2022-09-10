@@ -1,5 +1,7 @@
 package br.com.controleVendas.vendas.services.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -79,6 +81,26 @@ public class FuncionarioServiceImpl implements FuncionarioService{
 	public Optional<Funcionario> buscarPorEmail(String email) {
 		log.info("Buscando por funcionário de Email: {}", email);
 		return Optional.ofNullable(funcionarioRepository.findByEmail(email));
+	}
+
+	@Override
+	public Optional<Funcionario> listarPorId(Long id) {
+		Funcionario consulta = funcionarioRepository.getReferenceById(id);
+		
+		if(consulta.getDeletadoEm() == null) {
+			log.info("Buscando por funcionario de id: {}", id);
+			return Optional.ofNullable(consulta);
+		}
+		return Optional.empty();
+	}
+
+	@Override
+	public Optional<Funcionario> listarAssociados(Long empresa_id) {
+		List<Funcionario> consulta = funcionarioRepository.findAll();
+		
+		System.out.println(consulta);
+		
+		return null;
 	}
 
 }

@@ -67,4 +67,20 @@ public interface FuncionarioService {
 	 * @return Funcionario
 	 */
 	Optional<Funcionario> buscarPorEmail(String email);
+	
+	/**
+	 * Retorna funcionário ativo na base de dados.
+	 * 
+	 * @param id
+	 * @return Funcionario
+	 */
+	Optional<Funcionario> listarPorId(Long id);
+	
+	/**
+	 * Retorna os funcionário vinculados a empresa;
+	 * 
+	 * @param empresa_id
+	 * @return Funcionario
+	 */
+	Optional<Funcionario> listarAssociados(Long empresa_id);
 }

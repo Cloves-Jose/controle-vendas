@@ -14,6 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,7 +59,7 @@ public class FuncionarioController {
 		Response<FuncionarioDto> response = new Response<FuncionarioDto>();
 		
 		validarDadosExistentes(funcionarioDto, result);
-		Funcionario funcionario = this.converterDtoParaFuncionario(funcionarioDto, result);
+		Funcionario funcionario = converterDtoParaFuncionario(funcionarioDto, result);
 		
 		if(result.hasErrors()) {
 			log.error("Erro validando dados de funcionario {}", result.getAllErrors());
@@ -69,6 +72,88 @@ public class FuncionarioController {
 		funcionarioService.persistir(funcionario);
 		
 		response.setData(this.converterFuncionarioDto(funcionario));
+		return ResponseEntity.ok(response);
+	}
+	
+	/**
+	 * Desativar um funcionário por ID
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Response<String>> remover(@PathVariable("id") Long id) {
+		log.info("Remover funcionario: {}", id);
+		Response<String> response = new Response<String>();
+		Optional<Funcionario> funcionario = funcionarioService.listarPorId(id);
+		
+		if(!funcionario.isPresent()) {
+			log.info("Erro ao remover funcionário devido ao ID: {} ser inválido", id);
+			response.getErrors().add("Erro ao remover funcionário. Funcionário não econtrado para o id " + id);
+			return ResponseEntity.badRequest().body(response);
+		}
+		
+		if(funcionario.filter(func -> func.getDeletadoEm() != null).isPresent()) {
+			log.info("Funcionário já encontra-se desativado");
+			response.getErrors().add("Erro ao remover funcionário. O Funcionário já foi removido");
+			return ResponseEntity.badRequest().body(response);
+		}
+		
+		funcionarioService.deletar(formatarData(new Date()), id);
+		log.info("Funcionario deletado com sucesso");
+		response.setData("Funcionário deletado com sucesso");
+		return ResponseEntity.ok(response);
+	}
+	
+	/**
+	 * Recuperar funcionário na base de dados.
+	 * 
+	 * @param cpf
+	 * @return
+	 */
+	@PostMapping(value = "ativar/{cpf}")
+	public ResponseEntity<Response<String>> recuperar(@PathVariable("cpf") String cpf) {
+		log.info("Recuperando funcionário de cpf: {}", cpf);
+		Response<String> response = new Response<String>();
+		Optional<Funcionario> funcionario = funcionarioService.buscarPorCpf(cpf);
+		
+		if(!funcionario.isPresent()) {
+			log.info("Erro ao recuperar funcionário desativado. CPF {} inválido", cpf);
+			response.getErrors().add("Erro ao recuperar funcionário. Registro não encontrado para o CPF: " + cpf);
+			return ResponseEntity.badRequest().body(response);
+		}
+		
+		if(funcionario.filter(func -> func.getDeletadoEm() == null).isPresent()) {
+			log.info("O funcionário já encontra-se ativo");
+			response.getErrors().add("Erro ao recuperar funcionário. O funcionário encontra-se ativado.");
+			return ResponseEntity.badRequest().body(response);
+		}
+		
+		funcionarioService.ativar(cpf);
+		log.info("Funcionário ativado com sucesso!");
+		response.setData("Funcionário ativado com sucesso!");
+		return ResponseEntity.ok(response);
+	}
+	
+	/**
+	 * Retorna a listagem de funcionário vinculados a empresa.
+	 * 
+	 * @param empresa_id
+	 * @return FuncionarioDto
+	 */
+	@GetMapping(value = "/{empresa_id}")
+	public ResponseEntity<Response<FuncionarioDto>> buscarAssociados(@PathVariable("empresa_id") Long empresa_id) {
+		log.info("Buscando funcionários vinculados a empresa: {}", empresa_id);
+		Response<FuncionarioDto> response = new Response<FuncionarioDto>();
+		Optional<Funcionario> funcionario = funcionarioService.listarAssociados(empresa_id);
+		
+		if(!funcionario.isPresent()) {
+			log.info("Nenhum funcionário encontrado para o ID: {}", empresa_id);
+			response.getErrors().add("Empresa não encontrada para o id " + empresa_id);
+			return ResponseEntity.badRequest().body(response);
+		}
+		
+		response.setData(this.converterFuncionarioDto(funcionario.get()));
 		return ResponseEntity.ok(response);
 	}
 	
@@ -152,7 +237,8 @@ public class FuncionarioController {
 	 * @param result
 	 */
 	private void validarDadosExistentes(FuncionarioDto funcionarioDto, BindingResult result) {
-		Optional<Empresa> empresa = empresaService.buscarPorCnpj(funcionarioDto.getCnpj()); 
+		
+		Optional<Empresa> empresa = empresaService.buscarPorCnpj(funcionarioDto.getCnpj());
 		
 		if(!empresa.isPresent()) {
 			result.addError(new ObjectError("empresa", "Empresa não cadastrada."));
