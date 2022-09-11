@@ -36,5 +36,6 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long>{
 	Funcionario findByEmail(String email);
 	
 	@Query("SELECT f FROM Funcionario f WHERE f.empresa.id =:empresa_id")
+	@Transactional(readOnly = true)
 	Page<Funcionario> findByEmpresa(@Param("empresa_id") Long empresa_id, Pageable pageable);
 }
