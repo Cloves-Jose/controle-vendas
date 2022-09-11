@@ -9,6 +9,24 @@ import br.com.controleVendas.vendas.enums.TipoProdutoEnum;
 public interface EstoqueServices {
 	
 	/**
+	 * Ativa um produto na base de dados.
+	 * 
+	 * @param deletadoEm
+	 * @param empresa_id
+	 * @param produto_id
+	 */
+	void ativarEstoque(String deletadoEm, Long empresa_id, Long produto_id);
+	
+	/**
+	 * Deletar um produto da base de dados.
+	 * 
+	 * @param deletadoEm
+	 * @param empresa_id
+	 * @param produto_id
+	 */
+	void deletarEstoque(String deletadoEm, Long empresa_id, Long produto_id);
+	
+	/**
 	 * Realiza a consulta por marca. Consulta paginada
 	 * 
 	 * @param marca

@@ -27,6 +27,18 @@ public class EstoqueServiceImpl implements EstoqueServices{
 		return null;
 	}
 
+	@Override
+	public void ativarEstoque(String deletadoEm, Long empresa_id, Long produto_id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deletarEstoque(String deletadoEm, Long empresa_id, Long produto_id) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 
 }
