@@ -222,6 +222,13 @@ public class Funcionario implements Serializable{
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Funcionario [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", data_nascimento="
+				+ data_nascimento + ", numero_residencia=" + numero_residencia + ", cpf=" + cpf + ", email=" + email
+				+ ", senha=" + senha + ", rua=" + rua + ", bairro=" + bairro + ", cidade=" + cidade + ", estado="
+				+ estado + ", cep=" + cep + ", atualizadoEm=" + atualizadoEm + ", criadoEm=" + criadoEm
+				+ ", deletadoEm=" + deletadoEm + ", pis=" + pis + ", cargo=" + cargo + ", perfil=" + perfil + "]";
+	}
 }

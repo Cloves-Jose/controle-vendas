@@ -96,14 +96,14 @@ public class FuncionarioServiceImpl implements FuncionarioService{
 
 	@Override
 	public Page<Funcionario> listarAssociados(Long empresa_id, PageRequest pageRequest) {
-		Page<Funcionario> consulta = funcionarioRepository.findAll(pageRequest);
+		Page<Funcionario> consulta = funcionarioRepository.findByEmpresa(empresa_id, pageRequest);
 		
-		if(consulta.stream().anyMatch(cons -> cons.getEmpresa().getId() == empresa_id)) {
-			log.info("Buscando por funcionários vinculados a empresa.");
-			return consulta;
+		if(consulta.isEmpty()) {
+			log.info("Nenhum registro encontrado");
+			return Page.empty();
 		}
 		
-		log.info("Nenhum registro foi encontrado.");
-		return Page.empty();
+		log.info("Buscando por funcionário na base de dados");
+		return consulta;
 	}
 }

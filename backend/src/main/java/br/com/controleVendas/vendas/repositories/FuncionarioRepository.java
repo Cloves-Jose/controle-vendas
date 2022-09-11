@@ -1,5 +1,9 @@
 package br.com.controleVendas.vendas.repositories;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -31,5 +35,6 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long>{
 	@Transactional(readOnly = true)
 	Funcionario findByEmail(String email);
 	
-	
+	@Query("SELECT f FROM Funcionario f WHERE f.empresa.id =:empresa_id")
+	Page<Funcionario> findByEmpresa(@Param("empresa_id") Long empresa_id, Pageable pageable);
 }
