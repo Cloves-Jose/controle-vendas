@@ -33,7 +33,7 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long>{
 	@Transactional(readOnly = true)
 	Funcionario findByEmail(String email);
 	
-	@Query("SELECT f FROM Funcionario f WHERE f.empresa.id =:empresa_id")
 	@Transactional(readOnly = true)
+	@Query("SELECT f FROM Funcionario f WHERE f.empresa.id =:empresa_id AND f.deletadoEm = null")
 	Page<Funcionario> findByEmpresa(@Param("empresa_id") Long empresa_id, Pageable pageable);
 }

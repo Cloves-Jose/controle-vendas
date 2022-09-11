@@ -49,6 +49,7 @@ public interface FuncionarioService {
 	
 	/**
 	 * Retorna funcionário independente dele estar ativo ou não.
+	 * Ideal para evitar redundancia no banco de dados.
 	 * 
 	 * @param pis
 	 * @return Funcionario
@@ -57,6 +58,7 @@ public interface FuncionarioService {
 	
 	/**
 	 * Retorna funcionário independente dele estar ativo ou não.
+	 * Ideal para evitar redundancia no banco de dados.
 	 * 
 	 * @param cpf
 	 * @return Funcionario
@@ -65,6 +67,7 @@ public interface FuncionarioService {
 	
 	/**
 	 * Retorna funcionário independente dele estar ativo ou não.
+	 * Ideal para evitar redundancia no banco de dados.
 	 * 
 	 * @param email
 	 * @return Funcionario
@@ -86,4 +89,6 @@ public interface FuncionarioService {
 	 * @return Funcionario
 	 */
 	Page<Funcionario> listarAssociados(Long empresa_id, PageRequest pageRequest);
+	
+	
 }

@@ -102,7 +102,7 @@ public class FuncionarioServiceImpl implements FuncionarioService{
 			log.info("Nenhum registro encontrado");
 			return Page.empty();
 		}
-		
+	
 		log.info("Buscando por funcionário na base de dados");
 		return consulta;
 	}
