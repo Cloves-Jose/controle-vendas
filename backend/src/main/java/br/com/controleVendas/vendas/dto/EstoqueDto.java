@@ -7,6 +7,8 @@ import org.hibernate.validator.constraints.br.CNPJ;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.mongodb.lang.NonNull;
+
 import br.com.controleVendas.vendas.enums.TipoProdutoEnum;
 
 public class EstoqueDto {
@@ -88,8 +90,8 @@ public class EstoqueDto {
 	public void setDeletadoEm(String deletadoEm) {
 		this.deletadoEm = deletadoEm;
 	}
-	@NotEmpty(message = "Quantidade não pode ser vazio.")
-	@Length(min = 1, message = "A quantidade deve ser maior que zero.")
+	
+	@NonNull
 	public int getQuantidade() {
 		return quantidade;
 	}
@@ -98,7 +100,7 @@ public class EstoqueDto {
 		this.quantidade = quantidade;
 	}
 	
-	@NotEmpty(message = "Preço não pode ser vazio.")
+	@NonNull
 	public double getPreco() {
 		return preco;
 	}
@@ -110,7 +112,7 @@ public class EstoqueDto {
 		this.preco = preco;
 	}
 	
-	@NotEmpty(message = "Tipo produto não pode ser vazio.")
+	
 	public TipoProdutoEnum getTipo() {
 		return tipo;
 	}

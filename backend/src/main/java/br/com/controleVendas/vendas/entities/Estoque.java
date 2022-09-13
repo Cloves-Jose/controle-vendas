@@ -11,11 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import br.com.controleVendas.vendas.enums.TipoProdutoEnum;
 
-@Document(collection = "estoque")
+@Entity
+@Table(name = "estoque")
 public class Estoque implements Serializable{
 
 	/**
@@ -33,7 +32,7 @@ public class Estoque implements Serializable{
 	private int quantidade;
 	private double preco;
 	private TipoProdutoEnum tipo;
-	private Long empresa_id;
+	private Empresa empresa;
 	
 	public Estoque() {}
 	
@@ -83,7 +82,7 @@ public class Estoque implements Serializable{
 		this.cadastradoEm = cadastradoEm;
 	}
 	
-	@Column(name = "atualizadoEm", nullable = false)
+	@Column(name = "atualizadoEm", nullable = true)
 	public String getAtualizadoEm() {
 		return atualizadoEm;
 	}
@@ -92,7 +91,7 @@ public class Estoque implements Serializable{
 		this.atualizadoEm = atualizadoEm;
 	}
 	
-	@Column(name = "deletadoEm", nullable = false)
+	@Column(name = "deletadoEm", nullable = true)
 	public String getDeletadoEm() {
 		return deletadoEm;
 	}
@@ -128,35 +127,19 @@ public class Estoque implements Serializable{
 		this.tipo = tipo;
 	}
 	
-	//@ManyToOne(fetch = FetchType.EAGER)
-	//public Empresa getEmpresa() {
-	//	return empresa;
-	//}
-
-	//public void setEmpresa(Empresa empresa) {
-	//	this.empresa = empresa;
-	//}
-	
-	public Long getEmpresa_id() {
-		return empresa_id;
+	@ManyToOne(fetch = FetchType.EAGER)
+	public Empresa getEmpresa() {
+		return empresa;
 	}
 
-	public void setEmpresa_id(Long empresa_id) {
-		this.empresa_id = empresa_id;
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	@Override
 	public String toString() {
 		return "Estoque [id=" + id + ", nome=" + nome + ", marca=" + marca + ", validade=" + validade
 				+ ", cadastradoEm=" + cadastradoEm + ", atualizadoEm=" + atualizadoEm + ", deletadoEm=" + deletadoEm
-				+ ", quantidade=" + quantidade + ", preco=" + preco + ", tipo=" + tipo + ", empresa_id=" + empresa_id
-				+ "]";
+				+ ", quantidade=" + quantidade + ", preco=" + preco + ", tipo=" + tipo + ", empresa=" + empresa + "]";
 	}
-
-	
-
-	
-	
-	
-
 }
