@@ -34,7 +34,7 @@ public class Empresa implements Serializable{
 	private PerfilEnum perfil;
 	
 	private List<Funcionario> funcionario;
-	private List<Estoque> estoque;
+	//private List<Estoque> estoque;
 
 	public Empresa () {}
 	
@@ -139,15 +139,15 @@ public class Empresa implements Serializable{
 		this.funcionario = funcionario;
 	}
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "empresa_id")
-	public List<Estoque> getEstoque() {
-		return estoque;
-	}
+	//@OneToMany(cascade = CascadeType.ALL)
+	//@JoinColumn(name = "empresa_id")
+	//public List<Estoque> getEstoque() {
+	//	return estoque;
+	//}
 
-	public void setEstoque(List<Estoque> estoque) {
-		this.estoque = estoque;
-	}
+	//public void setEstoque(List<Estoque> estoque) {
+	//	this.estoque = estoque;
+	//}
 
 	@Override
 	public String toString() {
