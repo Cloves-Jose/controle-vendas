@@ -1,5 +1,10 @@
 package br.com.controleVendas.vendas.repositories;
 
-public interface EstoqueRepository {
+import org.springframework.data.mongodb.repository.MongoRepository;
 
+import br.com.controleVendas.vendas.entities.Estoque;
+
+public interface EstoqueRepository extends MongoRepository<Estoque, Long>{
+	
+	Estoque findByNome(String nome);
 }
