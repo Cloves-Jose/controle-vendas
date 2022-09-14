@@ -184,6 +184,7 @@ public class FuncionarioController {
 		funcionarioDto.setEmail(funcionario.getEmail());
 		funcionarioDto.setRua(funcionario.getRua());
 		funcionarioDto.setBairro(funcionario.getBairro());
+		funcionarioDto.setSalario(funcionario.getSalario());
 		funcionarioDto.setCidade(funcionario.getCidade());
 		funcionarioDto.setEstado(funcionario.getEstado());
 		funcionarioDto.setCep(funcionario.getCep());
@@ -218,6 +219,7 @@ public class FuncionarioController {
 		funcionario.setBairro(funcionarioDto.getBairro());
 		funcionario.setCidade(funcionarioDto.getCidade());
 		funcionario.setEstado(funcionarioDto.getEstado());
+		funcionario.setSalario(funcionarioDto.getSalario());
 		funcionario.setCep(funcionarioDto.getCep());
 		funcionario.setAtualizadoEm(funcionarioDto.getAtualizadoEm());
 		funcionario.setCriadoEm(this.formatarData(new Date()));

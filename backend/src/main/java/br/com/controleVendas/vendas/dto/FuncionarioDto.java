@@ -2,6 +2,7 @@ package br.com.controleVendas.vendas.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CNPJ;
@@ -23,6 +24,7 @@ public class FuncionarioDto {
 	private String bairro;
 	private String cidade;
 	private String estado;
+	private double salario;
 	private String cep;
 	private String atualizadoEm;
 	private String criadoEm;
@@ -215,6 +217,15 @@ public class FuncionarioDto {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	@NotNull(message = "Salário não pode ser nulo")
+	public double getSalario() {
+		return salario;
+	}
+
+	public void setSalario(double salario) {
+		this.salario = salario;
 	}
 	
 	

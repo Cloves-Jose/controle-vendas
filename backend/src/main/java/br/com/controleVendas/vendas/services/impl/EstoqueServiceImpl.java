@@ -1,5 +1,6 @@
 package br.com.controleVendas.vendas.services.impl;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -44,6 +45,15 @@ public class EstoqueServiceImpl implements EstoqueService{
 		
 		log.info("Buscando por funcionário na base de dados");
 		return consulta;
+	}
+
+	@Override
+	public boolean validarData(String data) {
+		if(data.equalsIgnoreCase("YYYY-MM-DD")) {
+			log.info("Data está no formato incorreto");
+			return true;
+		}
+		return false;
 	}
 
 }

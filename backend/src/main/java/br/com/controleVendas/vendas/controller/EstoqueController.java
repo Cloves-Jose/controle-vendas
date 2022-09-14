@@ -73,6 +73,12 @@ public class EstoqueController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
+		if(estoqueService.validarData(estoqueDto.getValidade())) {
+			log.error("Data está em formato inválido. Digite novamento no formato YYYY-MM-DD");
+			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
+			return ResponseEntity.badRequest().body(response);
+		}
+		
 		Optional<Empresa> empresa = empresaService.buscarPorCnpj(estoqueDto.getCnpj());
 		empresa.ifPresent(emp -> estoque.setEmpresa(emp));
 		estoqueService.persistir(estoque);

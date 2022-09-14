@@ -35,6 +35,7 @@ public class Funcionario implements Serializable{
 	private String atualizadoEm;
 	private String criadoEm;
 	private String deletadoEm;
+	private double salario;
 	private String pis;
 	private String cargo;
 	private PerfilEnum perfil;
@@ -213,6 +214,15 @@ public class Funcionario implements Serializable{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
+	@Column(name = "salario", nullable = false)
+	public double getSalario() {
+		return salario;
+	}
+
+	public void setSalario(double salario) {
+		this.salario = salario;
+	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	public Empresa getEmpresa() {
@@ -229,6 +239,9 @@ public class Funcionario implements Serializable{
 				+ data_nascimento + ", numero_residencia=" + numero_residencia + ", cpf=" + cpf + ", email=" + email
 				+ ", senha=" + senha + ", rua=" + rua + ", bairro=" + bairro + ", cidade=" + cidade + ", estado="
 				+ estado + ", cep=" + cep + ", atualizadoEm=" + atualizadoEm + ", criadoEm=" + criadoEm
-				+ ", deletadoEm=" + deletadoEm + ", pis=" + pis + ", cargo=" + cargo + ", perfil=" + perfil + "]";
+				+ ", deletadoEm=" + deletadoEm + ", salario=" + salario + ", pis=" + pis + ", cargo=" + cargo
+				+ ", perfil=" + perfil + "]";
 	}
+
+	
 }
