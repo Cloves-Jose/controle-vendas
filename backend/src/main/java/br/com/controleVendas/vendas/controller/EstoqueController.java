@@ -7,16 +7,23 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Sort.Direction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.controleVendas.vendas.dto.EstoqueDto;
@@ -39,6 +46,9 @@ public class EstoqueController {
 	
 	@Autowired
 	private EmpresaService empresaService;
+	
+	@Value("${paginacao.qtd_por_pagina}")
+	private int qtdPorPagina;
 	
 	/**
 	 * Cadastrar um novo produto no bando de dados.
@@ -68,6 +78,34 @@ public class EstoqueController {
 		estoqueService.persistir(estoque);
 		
 		response.setData(this.converterEstoqueDto(estoque));
+		return ResponseEntity.ok(response);
+	}
+	
+	/**
+	 * Busca paginada de produtos da mesma marca
+	 * 
+	 * @param empresa_id
+	 * @param marca
+	 * @param pag
+	 * @param ord
+	 * @param dir
+	 * @return EstoqueDto
+	 */
+	@GetMapping(value = "listaMarcas/{empresa_id}/{marca}")
+	public ResponseEntity<Response<Page<EstoqueDto>>> buscarEstoque(
+			@PathVariable("empresa_id") Long empresa_id,
+			@PathVariable("marca") String marca,
+			@RequestParam(value = "pag", defaultValue = "0") int pag,
+			@RequestParam(value = "ord", defaultValue = "id") String ord,
+			@RequestParam(value = "dir", defaultValue = "DESC") String dir){
+		log.info("Buscando por produtos associados ao cliente logado: {}, páginas: {}", empresa_id, marca);
+		Response<Page<EstoqueDto>> response = new Response<Page<EstoqueDto>>();
+		
+		Page<Estoque> estoques = estoqueService.buscarPorMarca(marca, empresa_id, 
+				PageRequest.of(pag, this.qtdPorPagina, Direction.valueOf(dir), ord));
+		Page<EstoqueDto> estoqueDto = estoques.map(estoque -> converterEstoqueDto(estoque));
+		
+		response.setData(estoqueDto);
 		return ResponseEntity.ok(response);
 	}
 
