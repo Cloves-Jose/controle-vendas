@@ -142,5 +142,8 @@ public class EstoqueController {
 			result.addError(new ObjectError("empresa", "Empresa não cadastrada"));
 		}
 		
+		estoqueService.buscarPorNome(estoqueDto.getNome(), empresa.get().getId())
+			.ifPresent(est -> result.addError(new ObjectError("estoque", "Produto já cadastrado na empresa")));
+		
 	}
 }

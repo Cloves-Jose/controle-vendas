@@ -1,5 +1,7 @@
 package br.com.controleVendas.vendas.services;
 
+import java.util.Optional;
+
 import br.com.controleVendas.vendas.entities.Estoque;
 
 public interface EstoqueService {
@@ -13,10 +15,10 @@ public interface EstoqueService {
 	Estoque persistir(Estoque estoque);
 	
 	/**
-	 * Buscar produto pelo nome
+	 * Buscar produto, desativado ou não, pelo nome
 	 * 
 	 * @param nome
 	 * @return
 	 */
-	Estoque buscarPorNome(String nome);
+	Optional<Estoque> buscarPorNome(String nome, Long empresa_id);
 }

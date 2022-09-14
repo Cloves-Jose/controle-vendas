@@ -1,5 +1,7 @@
 package br.com.controleVendas.vendas.services.impl;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +26,9 @@ public class EstoqueServiceImpl implements EstoqueService{
 	}
 
 	@Override
-	public Estoque buscarPorNome(String nome) {
+	public Optional<Estoque> buscarPorNome(String nome, Long empresa_id) {
 		log.info("Buscando por registro na base de dados");
-		return estoqueRepository.findByNome(nome);
+		return estoqueRepository.findByNome(nome, empresa_id);
 	}
 
 }

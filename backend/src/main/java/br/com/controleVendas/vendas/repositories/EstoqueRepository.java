@@ -1,5 +1,9 @@
 package br.com.controleVendas.vendas.repositories;
 
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,7 +17,15 @@ import br.com.controleVendas.vendas.entities.Estoque;
 public interface EstoqueRepository extends JpaRepository<Estoque, Long>{
 	
 	@Transactional(readOnly = true)
-	Estoque findByNome(@Param("nome") String nome);
+	@Query("SELECT e FROM Estoque e WHERE e.nome =:nome AND e.empresa.id =:empresa_id")
+	Optional<Estoque> findByNome(@Param("nome") String nome, @Param("empresa_id") Long empresa_id);
+	
+	@Transactional(readOnly = true)
+	@Query("SELECT e FROM Estoque e WHERE e.marca =:marca AND e.empresa.id =:empresa_id")
+	Page<Estoque> findByMarca(
+			@Param("marca")String marca, 
+			@Param("empresa_id")Long empresa_id, 
+			PageRequest pageRequest);
 	
 	@Modifying(clearAutomatically = true)
 	@Transactional(readOnly = false)
