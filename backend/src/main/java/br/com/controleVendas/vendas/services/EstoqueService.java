@@ -2,6 +2,9 @@ package br.com.controleVendas.vendas.services;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import br.com.controleVendas.vendas.entities.Estoque;
 
 public interface EstoqueService {
@@ -21,4 +24,14 @@ public interface EstoqueService {
 	 * @return
 	 */
 	Optional<Estoque> buscarPorNome(String nome, Long empresa_id);
+	
+	/**
+	 * Busca paginada de produtos da mesma marca.
+	 * 
+	 * @param marca
+	 * @param empresa_id
+	 * @param pageResquest
+	 * @return
+	 */
+	Page<Estoque> buscarPorMarca(String marca, Long empresa_id, PageRequest pageResquest);
 }
