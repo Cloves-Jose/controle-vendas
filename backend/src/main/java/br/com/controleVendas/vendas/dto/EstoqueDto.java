@@ -49,8 +49,6 @@ public class EstoqueDto {
 		this.nome = nome;
 	}
 	
-	@NotEmpty(message = "Validade não pode ser vazio.")
-	@Length(min = 10, max = 10, message = "Validade deve conter 10 caracteres")
 	public String getValidade() {
 		return validade;
 	}
@@ -84,7 +82,7 @@ public class EstoqueDto {
 	}
 	
 	@NotEmpty(message = "Fabricante não pode ser vazio")
-	@Length(min = 3, max = 100, message = "Fabicante deve ter entre 3 e 100 caracteres.")
+	@Length(min = 1, max = 100, message = "Fabicante deve ter entre 3 e 100 caracteres.")
 	public String getFabricante() {
 		return fabricante;
 	}
@@ -102,7 +100,7 @@ public class EstoqueDto {
 		this.modelo = modelo;
 	}
 	
-	@NotNull(message = "Tipo de produto deve ser informado.")
+	
 	public TipoProdutoEnum getTipo() {
 		return tipo;
 	}

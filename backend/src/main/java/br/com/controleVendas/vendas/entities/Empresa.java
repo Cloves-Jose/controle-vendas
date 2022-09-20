@@ -36,8 +36,6 @@ public class Empresa implements Serializable{
 	private PerfilEnum perfil;
 	
 	private List<Funcionario> funcionario;
-	
-	private List<Estoque> estoque;
 
 	public Empresa () {}
 	
@@ -140,18 +138,6 @@ public class Empresa implements Serializable{
 
 	public void setFuncionario(List<Funcionario> funcionario) {
 		this.funcionario = funcionario;
-	}
-	
-	@ManyToMany
-	@JoinTable(name = "empresa_estoque", joinColumns = 
-	{@JoinColumn(name = "empresa_id")}, inverseJoinColumns = 
-	{@JoinColumn(name = "estoque_id")})
-	public List<Estoque> getEstoque() {
-		return estoque;
-	}
-
-	public void setEstoque(List<Estoque> estoque) {
-		this.estoque = estoque;
 	}
 
 	@Override

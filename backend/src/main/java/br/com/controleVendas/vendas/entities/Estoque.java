@@ -54,7 +54,7 @@ public class Estoque implements Serializable{
 		this.nome = nome;
 	}
 
-	@Column(name = "data_validade", nullable = false)
+	@Column(name = "data_validade", nullable = true)
 	public String getValidade() {
 		return validade;
 	}

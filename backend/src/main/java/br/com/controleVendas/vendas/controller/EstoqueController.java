@@ -60,7 +60,6 @@ public class EstoqueController {
 			BindingResult result) throws NoSuchAlgorithmException {
 		log.info("Cadastrando produto: {}", estoqueDto);
 		Response<EstoqueDto> response = new Response<EstoqueDto>();
-		System.out.println(estoqueDto);
 		
 		validarDadosExistentes(estoqueDto, result);
 		Estoque estoque = converterDtoParaEstoque(estoqueDto, result);
@@ -149,7 +148,7 @@ public class EstoqueController {
 			estoque.setNumeroDeSerie(estoqueDto.getNumeroDeSerie());
 			estoque.setDimencoes(estoqueDto.getDimencoes());
 			estoque.setLote(estoqueDto.getLote());
-			estoque.setTipo(TipoProdutoEnum.ALIMENTOS);
+			estoque.setTipo(TipoProdutoEnum.ELETRONICO);
 			estoque.setValidade(estoqueDto.getValidade());
 			estoque.setCadastradoEm(formatarData(new Date()));
 		return estoque;
