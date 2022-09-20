@@ -17,14 +17,13 @@ import br.com.controleVendas.vendas.entities.Estoque;
 public interface EstoqueRepository extends JpaRepository<Estoque, Long>{
 	
 	@Transactional(readOnly = true)
-	@Query("SELECT e FROM Estoque e WHERE e.nome =:nome AND e.empresa.id =:empresa_id")
-	Optional<Estoque> findByNome(@Param("nome") String nome, @Param("empresa_id") Long empresa_id);
+	@Query("SELECT e FROM Estoque e WHERE e.nome =:nome")
+	Optional<Estoque> findByNome(@Param("nome") String nome);
 	
 	@Transactional(readOnly = true)
-	@Query("SELECT e FROM Estoque e WHERE e.marca =:marca AND e.empresa.id =:empresa_id AND e.deletadoEm = null")
+	@Query("SELECT e FROM Estoque e WHERE e.marca =:marca")
 	Page<Estoque> findByMarca(
 			@Param("marca")String marca, 
-			@Param("empresa_id")Long empresa_id, 
 			PageRequest pageRequest);
 	
 	@Modifying(clearAutomatically = true)

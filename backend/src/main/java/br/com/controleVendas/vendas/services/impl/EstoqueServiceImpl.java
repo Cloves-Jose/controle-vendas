@@ -1,6 +1,5 @@
 package br.com.controleVendas.vendas.services.impl;
 
-import java.util.Date;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -29,14 +28,14 @@ public class EstoqueServiceImpl implements EstoqueService{
 	}
 
 	@Override
-	public Optional<Estoque> buscarPorNome(String nome, Long empresa_id) {
+	public Optional<Estoque> buscarPorNome(String nome) {
 		log.info("Buscando por registro na base de dados");
-		return estoqueRepository.findByNome(nome, empresa_id);
+		return estoqueRepository.findByNome(nome);
 	}
 
 	@Override
-	public Page<Estoque> buscarPorMarca(String marca, Long empresa_id, PageRequest pageResquest) {
-		Page<Estoque> consulta = estoqueRepository.findByMarca(marca, empresa_id, pageResquest);
+	public Page<Estoque> buscarPorMarca(String marca, PageRequest pageResquest) {
+		Page<Estoque> consulta = estoqueRepository.findByMarca(marca, pageResquest);
 		
 		if(consulta.isEmpty()) {
 			log.info("Nenhum registro encontrado");

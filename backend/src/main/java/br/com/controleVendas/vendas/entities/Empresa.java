@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -34,7 +36,8 @@ public class Empresa implements Serializable{
 	private PerfilEnum perfil;
 	
 	private List<Funcionario> funcionario;
-	//private List<Estoque> estoque;
+	
+	private List<Estoque> estoque;
 
 	public Empresa () {}
 	
@@ -139,15 +142,17 @@ public class Empresa implements Serializable{
 		this.funcionario = funcionario;
 	}
 	
-	//@OneToMany(cascade = CascadeType.ALL)
-	//@JoinColumn(name = "empresa_id")
-	//public List<Estoque> getEstoque() {
-	//	return estoque;
-	//}
+	@ManyToMany
+	@JoinTable(name = "empresa_estoque", joinColumns = 
+	{@JoinColumn(name = "empresa_id")}, inverseJoinColumns = 
+	{@JoinColumn(name = "estoque_id")})
+	public List<Estoque> getEstoque() {
+		return estoque;
+	}
 
-	//public void setEstoque(List<Estoque> estoque) {
-	//	this.estoque = estoque;
-	//}
+	public void setEstoque(List<Estoque> estoque) {
+		this.estoque = estoque;
+	}
 
 	@Override
 	public String toString() {

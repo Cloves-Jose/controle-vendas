@@ -1,14 +1,11 @@
 package br.com.controleVendas.vendas.entities;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.com.controleVendas.vendas.enums.TipoProdutoEnum;
@@ -24,15 +21,16 @@ public class Estoque implements Serializable{
 	
 	private Long id;
 	private String nome;
-	private String marca;
+	private String fabricante;
+	private String modelo;
 	private String validade;
 	private String cadastradoEm;
 	private String atualizadoEm;
 	private String deletadoEm;
-	private int quantidade;
-	private double preco;
 	private TipoProdutoEnum tipo;
-	private Empresa empresa;
+	private String numeroDeSerie;
+	private String dimencoes;
+	private String lote;
 	
 	public Estoque() {}
 	
@@ -53,15 +51,6 @@ public class Estoque implements Serializable{
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	
-	@Column(name = "marca_produto", nullable = false)
-	public String getMarca() {
-		return marca;
-	}
-
-	public void setMarca(String marca) {
-		this.marca = marca;
 	}
 
 	@Column(name = "data_validade", nullable = false)
@@ -100,24 +89,6 @@ public class Estoque implements Serializable{
 		this.deletadoEm = deletadoEm;
 	}
 	
-	@Column(name = "quantidade", nullable = false)
-	public int getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
-	}
-	
-	@Column(name = "preco", nullable = false)
-	public double getPreco() {
-		return preco;
-	}
-
-	public void setPreco(double preco) {
-		this.preco = preco;
-	}
-	
 	@Column(name = "tipo_produto", nullable = false)
 	public TipoProdutoEnum getTipo() {
 		return tipo;
@@ -127,19 +98,50 @@ public class Estoque implements Serializable{
 		this.tipo = tipo;
 	}
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	public Empresa getEmpresa() {
-		return empresa;
+	@Column(name = "fabricante", nullable = false)
+	public String getFabricante() {
+		return fabricante;
 	}
 
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
+	public void setFabricante(String fabricante) {
+		this.fabricante = fabricante;
+	}
+	
+	@Column(name = "modelo", nullable = false)
+	public String getModelo() {
+		return modelo;
 	}
 
-	@Override
-	public String toString() {
-		return "Estoque [id=" + id + ", nome=" + nome + ", marca=" + marca + ", validade=" + validade
-				+ ", cadastradoEm=" + cadastradoEm + ", atualizadoEm=" + atualizadoEm + ", deletadoEm=" + deletadoEm
-				+ ", quantidade=" + quantidade + ", preco=" + preco + ", tipo=" + tipo + ", empresa=" + empresa + "]";
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
 	}
+	
+	@Column(name = "numero_serie", nullable = true)
+	public String getNumeroDeSerie() {
+		return numeroDeSerie;
+	}
+
+	public void setNumeroDeSerie(String numeroDeSerie) {
+		this.numeroDeSerie = numeroDeSerie;
+	}
+	
+	@Column(name = "dimencao", nullable = true)
+	public String getDimencoes() {
+		return dimencoes;
+	}
+
+	public void setDimencoes(String dimencoes) {
+		this.dimencoes = dimencoes;
+	}
+	
+	@Column(name = "lote", nullable = true)
+	public String getLote() {
+		return lote;
+	}
+
+	public void setLote(String lote) {
+		this.lote = lote;
+	}
+	
+	
 }

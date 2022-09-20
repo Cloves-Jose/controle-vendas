@@ -24,7 +24,7 @@ public interface EstoqueService {
 	 * @param nome
 	 * @return
 	 */
-	Optional<Estoque> buscarPorNome(String nome, Long empresa_id);
+	Optional<Estoque> buscarPorNome(String nome);
 	
 	/**
 	 * Busca paginada de produtos da mesma marca.
@@ -34,7 +34,7 @@ public interface EstoqueService {
 	 * @param pageResquest
 	 * @return
 	 */
-	Page<Estoque> buscarPorMarca(String marca, Long empresa_id, PageRequest pageResquest);
+	Page<Estoque> buscarPorMarca(String marca, PageRequest pageResquest);
 	
 	/**
 	 * Valida a data para armazenar no banco de dados
@@ -42,4 +42,5 @@ public interface EstoqueService {
 	 * @param data
 	 */
 	boolean validarData(String data);
+	
 }

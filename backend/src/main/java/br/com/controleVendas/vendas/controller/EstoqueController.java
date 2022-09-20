@@ -3,8 +3,6 @@ package br.com.controleVendas.vendas.controller;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Sort.Direction;
@@ -27,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.controleVendas.vendas.dto.EstoqueDto;
-import br.com.controleVendas.vendas.entities.Empresa;
 import br.com.controleVendas.vendas.entities.Estoque;
 import br.com.controleVendas.vendas.enums.TipoProdutoEnum;
 import br.com.controleVendas.vendas.response.Response;
@@ -63,24 +60,24 @@ public class EstoqueController {
 			BindingResult result) throws NoSuchAlgorithmException {
 		log.info("Cadastrando produto: {}", estoqueDto);
 		Response<EstoqueDto> response = new Response<EstoqueDto>();
+		System.out.println(estoqueDto);
 		
 		validarDadosExistentes(estoqueDto, result);
 		Estoque estoque = converterDtoParaEstoque(estoqueDto, result);
-		
 		if(result.hasErrors()) {
 			log.error("Erro validando dados de produto {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		if(estoqueService.validarData(estoqueDto.getValidade())) {
-			log.error("Data está em formato inválido. Digite novamento no formato YYYY-MM-DD");
-			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
-			return ResponseEntity.badRequest().body(response);
-		}
 		
-		Optional<Empresa> empresa = empresaService.buscarPorCnpj(estoqueDto.getCnpj());
-		empresa.ifPresent(emp -> estoque.setEmpresa(emp));
+		
+		//if(estoqueService.validarData(estoqueDto.getValidade())) {
+		//	log.error("Data está em formato inválido. Digite novamento no formato YYYY-MM-DD");
+		//	result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
+		//	return ResponseEntity.badRequest().body(response);
+		//}
+	
 		estoqueService.persistir(estoque);
 		
 		response.setData(this.converterEstoqueDto(estoque));
@@ -107,7 +104,7 @@ public class EstoqueController {
 		log.info("Buscando por produtos associados ao cliente logado: {}, páginas: {}", empresa_id, marca);
 		Response<Page<EstoqueDto>> response = new Response<Page<EstoqueDto>>();
 		
-		Page<Estoque> estoques = estoqueService.buscarPorMarca(marca, empresa_id, 
+		Page<Estoque> estoques = estoqueService.buscarPorMarca(marca, 
 				PageRequest.of(pag, this.qtdPorPagina, Direction.valueOf(dir), ord));
 		Page<EstoqueDto> estoqueDto = estoques.map(estoque -> converterEstoqueDto(estoque));
 		
@@ -117,7 +114,7 @@ public class EstoqueController {
 
 	
 	/**
-	 * Converter Estoque para EstoqueDto
+	 * Converter Estoque para EstoqueDtoi
 	 * 
 	 * @param estoque
 	 * @return EstoqueDto
@@ -180,14 +177,8 @@ public class EstoqueController {
 	 */
 	private void validarDadosExistentes(EstoqueDto estoqueDto, BindingResult result) {
 		
-		Optional<Empresa> empresa = empresaService.buscarPorCnpj(estoqueDto.getCnpj());
-		
-		if(!empresa.isPresent()) {
-			result.addError(new ObjectError("empresa", "Empresa não cadastrada"));
-		}
-		
-		estoqueService.buscarPorNome(estoqueDto.getNome(), empresa.get().getId())
-			.ifPresent(est -> result.addError(new ObjectError("estoque", "Produto já cadastrado na empresa")));
+		estoqueService.buscarPorNome(estoqueDto.getNome())
+			.ifPresent(est -> result.addError(new ObjectError("estoque", "Produto já cadastrado no banco")));
 		
 	}
 }
