@@ -34,8 +34,8 @@ public class EstoqueServiceImpl implements EstoqueService{
 	}
 
 	@Override
-	public Page<Estoque> buscarPorMarca(String marca, PageRequest pageResquest) {
-		Page<Estoque> consulta = estoqueRepository.findByMarca(marca, pageResquest);
+	public Page<Estoque> buscarPorMarca(String fabricante, PageRequest pageResquest) {
+		Page<Estoque> consulta = estoqueRepository.findByMarca(fabricante, pageResquest);
 		
 		if(consulta.isEmpty()) {
 			log.info("Nenhum registro encontrado");
