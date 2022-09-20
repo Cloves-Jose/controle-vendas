@@ -1,20 +1,10 @@
 package br.com.controleVendas.vendas.dto;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.br.CNPJ;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.mongodb.lang.NonNull;
-
 import br.com.controleVendas.vendas.enums.TipoProdutoEnum;
 
 public class EstoqueDto {
-	
-	private static Logger log =  LoggerFactory.getLogger(EstoqueDto.class);
 	
 	private Long id;
 	private String nome;

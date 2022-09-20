@@ -28,7 +28,6 @@ import br.com.controleVendas.vendas.dto.EstoqueDto;
 import br.com.controleVendas.vendas.entities.Estoque;
 import br.com.controleVendas.vendas.enums.TipoProdutoEnum;
 import br.com.controleVendas.vendas.response.Response;
-import br.com.controleVendas.vendas.services.EmpresaService;
 import br.com.controleVendas.vendas.services.EstoqueService;
 
 @RestController
@@ -40,9 +39,6 @@ public class EstoqueController {
 	
 	@Autowired
 	private EstoqueService estoqueService;
-	
-	@Autowired
-	private EmpresaService empresaService;
 	
 	@Value("${paginacao.qtd_por_pagina}")
 	private int qtdPorPagina;
