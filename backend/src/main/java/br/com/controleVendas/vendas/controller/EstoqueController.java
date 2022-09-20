@@ -70,13 +70,6 @@ public class EstoqueController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		
-		
-		//if(estoqueService.validarData(estoqueDto.getValidade())) {
-		//	log.error("Data está em formato inválido. Digite novamento no formato YYYY-MM-DD");
-		//	result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
-		//	return ResponseEntity.badRequest().body(response);
-		//}
 	
 		estoqueService.persistir(estoque);
 		
@@ -114,7 +107,7 @@ public class EstoqueController {
 
 	
 	/**
-	 * Converter Estoque para EstoqueDtoi
+	 * Converter Estoque para EstoqueDto
 	 * 
 	 * @param estoque
 	 * @return EstoqueDto
@@ -124,9 +117,11 @@ public class EstoqueController {
 		
 		estoqueDto.setId(estoque.getId());
 		estoqueDto.setNome(estoque.getNome());
-		estoqueDto.setMarca(estoque.getMarca());
-		estoqueDto.setPreco(estoque.getPreco());
-		estoqueDto.setQuantidade(estoque.getQuantidade());
+		estoqueDto.setFabricante(estoque.getFabricante());
+		estoqueDto.setModelo(estoque.getModelo());
+		estoqueDto.setNumeroDeSerie(estoque.getNumeroDeSerie());
+		estoqueDto.setDimencoes(estoque.getDimencoes());
+		estoqueDto.setLote(estoque.getLote());
 		estoqueDto.setTipo(estoque.getTipo());
 		estoqueDto.setValidade(estoque.getValidade());
 		estoqueDto.setAtualizadoEm(estoque.getAtualizadoEm());
@@ -149,9 +144,11 @@ public class EstoqueController {
 			Estoque estoque = new Estoque();
 			
 			estoque.setNome(estoqueDto.getNome());
-			estoque.setMarca(estoqueDto.getMarca());
-			estoque.setPreco(estoqueDto.getPreco());
-			estoque.setQuantidade(estoqueDto.getQuantidade());
+			estoque.setFabricante(estoqueDto.getFabricante());
+			estoque.setModelo(estoqueDto.getModelo());
+			estoque.setNumeroDeSerie(estoqueDto.getNumeroDeSerie());
+			estoque.setDimencoes(estoqueDto.getDimencoes());
+			estoque.setLote(estoqueDto.getLote());
 			estoque.setTipo(TipoProdutoEnum.ALIMENTOS);
 			estoque.setValidade(estoqueDto.getValidade());
 			estoque.setCadastradoEm(formatarData(new Date()));
