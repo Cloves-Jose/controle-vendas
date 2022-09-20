@@ -1,6 +1,5 @@
 package br.com.controleVendas.vendas.services;
 
-import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -34,7 +33,7 @@ public interface EstoqueService {
 	 * @param pageResquest
 	 * @return
 	 */
-	Page<Estoque> buscarPorMarca(String marca, PageRequest pageResquest);
+	Page<Estoque> buscarPorMarca(String fabricante, PageRequest pageResquest);
 	
 	/**
 	 * Valida a data para armazenar no banco de dados
