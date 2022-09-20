@@ -21,9 +21,9 @@ public interface EstoqueRepository extends JpaRepository<Estoque, Long>{
 	Optional<Estoque> findByNome(@Param("nome") String nome);
 	
 	@Transactional(readOnly = true)
-	@Query("SELECT e FROM Estoque e WHERE e.marca =:marca")
+	@Query("SELECT e FROM Estoque e WHERE e.fabricante =:fabricante")
 	Page<Estoque> findByMarca(
-			@Param("marca")String marca, 
+			@Param("fabricante")String fabricante, 
 			PageRequest pageRequest);
 	
 	@Modifying(clearAutomatically = true)

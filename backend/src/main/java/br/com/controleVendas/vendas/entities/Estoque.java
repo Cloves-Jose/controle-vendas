@@ -30,6 +30,7 @@ public class Estoque implements Serializable{
 	private TipoProdutoEnum tipo;
 	private String numeroDeSerie;
 	private String dimencoes;
+
 	private String lote;
 	
 	public Estoque() {}
@@ -143,5 +144,12 @@ public class Estoque implements Serializable{
 		this.lote = lote;
 	}
 	
+	@Override
+	public String toString() {
+		return "Estoque [id=" + id + ", nome=" + nome + ", fabricante=" + fabricante + ", modelo=" + modelo
+				+ ", validade=" + validade + ", cadastradoEm=" + cadastradoEm + ", atualizadoEm=" + atualizadoEm
+				+ ", deletadoEm=" + deletadoEm + ", tipo=" + tipo + ", numeroDeSerie=" + numeroDeSerie + ", dimencoes="
+				+ dimencoes + ", lote=" + lote + "]";
+	}
 	
 }
