@@ -1,6 +1,7 @@
 package br.com.controleVendas.vendas.entities;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,7 +31,6 @@ public class Estoque implements Serializable{
 	private TipoProdutoEnum tipo;
 	private String numeroDeSerie;
 	private String dimencoes;
-
 	private String lote;
 	
 	public Estoque() {}
@@ -143,7 +143,7 @@ public class Estoque implements Serializable{
 	public void setLote(String lote) {
 		this.lote = lote;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Estoque [id=" + id + ", nome=" + nome + ", fabricante=" + fabricante + ", modelo=" + modelo
