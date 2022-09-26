@@ -8,14 +8,6 @@ import br.com.controleVendas.vendas.entities.Empresa;
 public interface EmpresaService {
 	
 	/**
-	 * Retorna um cliente pelo email somente se ele estiver ativo
-	 * 
-	 * @param email
-	 * @return CadastroPJ
-	 */
-	Optional<Empresa> buscarPorEmail(String email);
-	
-	/**
 	 * Verifica se o email já está cadastrado
 	 * 
 	 * @param email
@@ -29,7 +21,7 @@ public interface EmpresaService {
 	 * @param id
 	 * @return CadastroPJ
 	 */
-	Optional<Empresa> buscarPorId(Long id);
+	Optional<Empresa> listarPorId(Long id);
 	
 	/**
 	 * Retorna um cliente pelo id
@@ -37,7 +29,7 @@ public interface EmpresaService {
 	 * @param id
 	 * @return CadastroPJ
 	 */
-	Optional<Empresa> buscarPorCnpj(String cnpj);
+	Optional<Empresa> listarPorCnpj(String cnpj);
 	
 	/**
 	 * Cadastra um novo cliente na base de dados

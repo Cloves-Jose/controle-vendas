@@ -75,7 +75,7 @@ public class FuncionarioController {
 			return ResponseEntity.badRequest().body(response);
 		}
 		
-		Optional<Empresa> empresa = empresaService.buscarPorCnpj(funcionarioDto.getCnpj());
+		Optional<Empresa> empresa = empresaService.listarPorCnpj(funcionarioDto.getCnpj());
 		empresa.ifPresent(emp -> funcionario.setEmpresa(emp));
 		funcionarioService.persistir(funcionario);
 		
@@ -249,7 +249,7 @@ public class FuncionarioController {
 	 */
 	private void validarDadosExistentes(FuncionarioDto funcionarioDto, BindingResult result) {
 		
-		Optional<Empresa> empresa = empresaService.buscarPorCnpj(funcionarioDto.getCnpj());
+		Optional<Empresa> empresa = empresaService.listarPorCnpj(funcionarioDto.getCnpj());
 		
 		if(!empresa.isPresent()) {
 			result.addError(new ObjectError("empresa", "Empresa não cadastrada."));

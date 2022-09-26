@@ -20,19 +20,6 @@ public class EmpresaServiceImpl implements EmpresaService{
 	@Autowired
 	private EmpresaRepository empresaRepository;
 	
-	
-	@Override
-	public Optional<Empresa> buscarPorEmail(String email) {
-		Empresa consulta = this.empresaRepository.findByEmail(email);
-		
-		if(consulta.getDeletadoEm() == null) {
-			log.info("Buscando cliente pelo email {}", email);
-			return Optional.ofNullable(consulta);
-		}
-		log.info("Cliente não encontrado {}", email);
-		return Optional.empty();
-	}
-	
 	@Override
 	public Empresa persistir(Empresa cliente) {
 		log.info("Persistindo cliente na base de dados {}", cliente);
@@ -55,13 +42,13 @@ public class EmpresaServiceImpl implements EmpresaService{
 
 
 	@Override
-	public Optional<Empresa> buscarPorCnpj(String cnpj) {
+	public Optional<Empresa> listarPorCnpj(String cnpj) {
 		log.info("Procurando por CNPJ: {}", cnpj);
 		return Optional.ofNullable(this.empresaRepository.findByCnpj(cnpj));
 	}
 
 	@Override
-	public Optional<Empresa> buscarPorId(Long id) {
+	public Optional<Empresa> listarPorId(Long id) {
 		log.info("Procurando por ID: {}", id);
 		return Optional.ofNullable(this.empresaRepository.getReferenceById(id));
 	}

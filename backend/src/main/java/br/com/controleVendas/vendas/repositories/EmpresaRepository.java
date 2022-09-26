@@ -14,6 +14,7 @@ import br.com.controleVendas.vendas.entities.Empresa;
 public interface EmpresaRepository extends JpaRepository<Empresa, Long>{
 	
 	@Transactional(readOnly = true)
+	@Query("SELECT e FROM Empresa e WHERE e.email =:email AND e.deletadoEm = null")
 	Empresa findByEmail(@Param("email") String email);
 	
 	@Transactional(readOnly = true)

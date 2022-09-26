@@ -84,7 +84,7 @@ public class EmpresaController {
 	public ResponseEntity<Response<String>> recuperar(@PathVariable("cnpj") String cnpj) {
 		log.info("Recuperando PJ: {}", cnpj);
 		Response<String> response = new Response<String>();
-		Optional<Empresa> empresa = empresaService.buscarPorCnpj(cnpj);
+		Optional<Empresa> empresa = empresaService.listarPorCnpj(cnpj);
 		
 		if(!empresa.isPresent()) {
 			log.info("Erro ao recuperar empresa desativada. CNPJ: {} inválido", cnpj);
@@ -114,7 +114,7 @@ public class EmpresaController {
 	public ResponseEntity<Response<String>> remover(@PathVariable("id") Long id) {
 		log.info("Remover cliente: {}", id);
 		Response<String> response = new Response<String>();
-		Optional<Empresa> empresa = empresaService.buscarPorId(id);
+		Optional<Empresa> empresa = empresaService.listarPorId(id);
 		
 		if(!empresa.isPresent()) {
 			log.info("Erro ao remover empresa devido ao ID: {} ser inválido.", id);
@@ -144,8 +144,8 @@ public class EmpresaController {
 	public ResponseEntity<Response<EmpresaDto>> buscarPorId(@PathVariable("clienteId") Long clienteId) {
 		log.info("Buscando cliente por Id: {}", clienteId);
 		Response<EmpresaDto> response = new Response<EmpresaDto>();
-		Optional<Empresa> empresa = empresaService.buscarPorId(clienteId);
-		
+		Optional<Empresa> empresa = empresaService.listarPorId(clienteId);
+
 		if(!empresa.isPresent()) {
 			log.info("Empresa não encontrado para o ID: {}", clienteId);
 			response.getErrors().add("Empresa não encontrado para o id " + clienteId);
@@ -166,7 +166,7 @@ public class EmpresaController {
 	public ResponseEntity<Response<EmpresaDto>> buscaPorEmail(@PathVariable("email") String email) {
 		log.info("Buscando cliente por email: {}", email);
 		Response<EmpresaDto> response = new Response<EmpresaDto>();
-		Optional<Empresa> empresa = empresaService.buscarPorEmail(email);
+		Optional<Empresa> empresa = empresaService.listarPorEmail(email);
 		
 		if(!empresa.isPresent()) {
 			log.info("Empresa não encontrada para o email: {}", email);
@@ -240,7 +240,7 @@ public class EmpresaController {
 		this.empresaService.listarPorEmail(empresaDto.getEmail())
 			.ifPresent(cli -> result.addError(new ObjectError("empresa", "Email já existente.")));
 		
-		this.empresaService.buscarPorCnpj(empresaDto.getCnpj())
+		this.empresaService.listarPorCnpj(empresaDto.getCnpj())
 			.ifPresent(cadPj -> result.addError(new ObjectError("empresa", "CNPJ já cadastrado")));
 	}
 }
